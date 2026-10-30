@@ -268,7 +268,7 @@
       const name = ipo.name || 'Unnamed IPO';
       const status = ipo.status || 'upcoming';
       const statusLabel = ipo.statusLabel || 'Upcoming';
-      const statusColor = ipo.statusColor || (ipo.gmpVal < 0 ? 'red' : 'green');
+      const statusColor = status === 'closed' ? 'red' : (ipo.statusColor || (status === 'upcoming' ? 'yellow' : 'green'));
       const dates = ipo.dates || 'TBA';
       const ratingStars = ipo.ratingStars || '☆☆☆☆☆';
       const ratingScore = ipo.ratingScore || 'N/A';

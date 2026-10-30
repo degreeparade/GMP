@@ -53,13 +53,50 @@ function parsePercent(value) {
   return match ? Number(match[1]) : null;
 }
 
-function statusFor(rawName, rowText) {
+function parseDate(value, referenceDate = new Date()) {
+  const matches = clean(value).match(/\b\d{1,2}[-/\s][A-Za-z]{3,9}\b/g) || [];
+  const match = matches[0]?.match(/(\d{1,2})[-/\s]([A-Za-z]{3,9})/);
+  if (!match) return null;
+  const month = new Date(`${match[2]} 1, ${referenceDate.getFullYear()}`).getMonth();
+  if (!Number.isInteger(month)) return null;
+  const date = new Date(referenceDate.getFullYear(), month, Number(match[1]));
+  date.setHours(0, 0, 0, 0);
+  return Number.isNaN(date.getTime()) ? null : date;
+}
+
+function dateBounds(value, referenceDate) {
+  const matches = clean(value).match(/\b\d{1,2}[-/\s][A-Za-z]{3,9}\b/g) || [];
+  return {
+    start: parseDate(matches[0] || '', referenceDate),
+    end: parseDate(matches[matches.length - 1] || '', referenceDate)
+  };
+}
+
+function statusFor(rawName, rowText, openText, closeText) {
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+  const openBounds = dateBounds(openText, today);
+  const closeBounds = dateBounds(closeText, today);
+  const openDate = openBounds.start;
+  const closeDate = closeBounds.end || openBounds.end;
   const text = `${rawName} ${rowText}`;
-  if (/(?:IPOO|SMEO|\bopen\b)/i.test(text)) {
-    return { value: 'open', label: 'Open Now', color: 'green' };
+
+  if (openDate && closeDate) {
+    if (today < openDate) return { value: 'upcoming', label: 'Upcoming', color: 'yellow' };
+    if (today <= closeDate) return { value: 'open', label: 'Open Now', color: 'green' };
+    return { value: 'closed', label: 'Closed', color: 'red' };
+  }
+  if (openDate && today < openDate) {
+    return { value: 'upcoming', label: 'Upcoming', color: 'yellow' };
+  }
+  if (openDate && openDate < today) {
+    return { value: 'closed', label: 'Closed', color: 'red' };
   }
   if (/(?:IPOC|SMEC|L@|Listed|Allotted|\bclosed\b)/i.test(text)) {
     return { value: 'closed', label: 'Closed', color: 'red' };
+  }
+  if (/(?:IPOO|SMEO|\bopen\b)/i.test(text)) {
+    return { value: 'open', label: 'Open Now', color: 'green' };
   }
   return { value: 'upcoming', label: 'Upcoming', color: 'yellow' };
 }
@@ -90,8 +127,10 @@ function parseRows(html) {
         ? Number(((gmp.value / price) * 100).toFixed(2))
         : null;
     const rating = getSentimentRating(gmpPercent);
-    const dates = clean(cells.eq(7).text() || cells.eq(6).text()).split(/GMP:/i)[0].trim() || 'TBA';
-    const status = statusFor(rawName, rowText);
+    const openText = clean(cells.eq(7).text() || cells.eq(6).text()).split(/GMP:/i)[0].trim();
+    const closeText = clean(cells.eq(8).text()).split(/GMP:/i)[0].trim();
+    const dates = [openText, closeText].filter(Boolean).join(' to ') || 'TBA';
+    const status = statusFor(rawName, rowText, openText, closeText);
     const estListing = `₹${Math.round(price + gmp.value)}`;
 
     ipos.push({
@@ -110,7 +149,7 @@ function parseRows(html) {
       ratingStars: rating.stars,
       ratingScore: rating.score,
       sentiment: rating.sentiment,
-      applyUrl: 'https://your-broker-affiliate-link.com'
+      applyUrl: status.value === 'closed' ? null : 'https://your-broker-affiliate-link.com'
     });
   });
 
