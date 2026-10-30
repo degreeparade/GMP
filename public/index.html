@@ -114,11 +114,22 @@
     .data-label { display: block; margin-bottom: 3px; color: var(--muted); font-size: .66rem; text-transform: uppercase; letter-spacing: .08em; }
     .data-value { color: var(--text); font: 600 .88rem var(--mono); white-space: nowrap; }
     .gmp-positive { color: var(--green); } .gmp-negative { color: var(--red); }
-    footer { margin: 42px 0 30px; padding-top: 20px; border-top: 1px solid var(--border); color: var(--muted); font-size: .72rem; line-height: 1.7; }
-    .footer-nav { display: flex; justify-content: center; flex-wrap: wrap; gap: 8px 18px; margin-bottom: 14px; }
-    .footer-nav a { color: var(--cyan); text-decoration: none; }
-    .footer-nav a:hover { text-decoration: underline; }
-    .copyright { margin: 12px 0 0; text-align: center; color: #64748b; font-size: .68rem; }
+    footer { margin-top: 64px; padding: 38px 0 28px; border-top: 1px solid #162033; color: var(--muted); font-size: .74rem; line-height: 1.7; background: #06080e; }
+    .footer-grid { display: grid; grid-template-columns: minmax(250px, 1.5fr) repeat(3, 1fr); gap: 34px; }
+    .footer-brand h2 { margin: 0 0 10px; color: var(--text); font-size: 1.05rem; }
+    .footer-brand p { max-width: 330px; margin: 0 0 16px; }
+    .trust-badges { display: flex; flex-wrap: wrap; gap: 6px; }
+    .trust-badge { padding: 5px 9px; border: 1px solid var(--border); border-radius: 999px; color: #b8c5d6; background: rgba(255,255,255,.035); font-size: .63rem; white-space: nowrap; }
+    .footer-column h3 { margin: 3px 0 12px; color: var(--text); font-size: .78rem; }
+    .footer-column a { display: block; width: fit-content; margin: 7px 0; color: var(--muted); text-decoration: none; transition: color .18s, transform .18s; }
+    .footer-column a:hover { color: var(--cyan); transform: translateX(3px); }
+    .trust-bar { display: flex; justify-content: center; flex-wrap: wrap; gap: 8px; margin: 34px 0 25px; padding-top: 24px; border-top: 1px solid var(--border); }
+    .trust-bar a { padding: 7px 12px; border: 1px solid var(--border); border-radius: 999px; color: #b8c5d6; background: rgba(255,255,255,.035); text-decoration: none; transition: border-color .18s, color .18s, background .18s; }
+    .trust-bar a:hover { border-color: rgba(56,189,248,.42); color: var(--cyan); background: rgba(56,189,248,.07); }
+    .footer-bottom { display: flex; justify-content: space-between; gap: 28px; padding-top: 20px; border-top: 1px solid var(--border); }
+    .copyright { margin: 0; white-space: nowrap; color: #718198; }
+    .risk-statement { max-width: 690px; margin: 0; color: #9eabbf; font-size: .68rem; }
+    .risk-statement strong { color: var(--text); }
     @media (max-width: 800px) {
       .broker-grid { grid-template-columns: repeat(2, 1fr); }
       .ipo-card { grid-template-columns: 1.6fr 1fr 1fr; gap: 14px; }
@@ -131,6 +142,10 @@
       .controls { display: grid; } .tabs { justify-content: center; } .search { width: 100%; }
       .ipo-card { grid-template-columns: 1fr 1fr; padding: 16px; }
       .identity { grid-column: 1 / -1; } .ipo-card .listing { grid-column: auto; }
+      .footer-grid { grid-template-columns: 1fr 1fr; gap: 25px 20px; }
+      .footer-brand { grid-column: 1 / -1; }
+      .footer-bottom { display: block; }
+      .copyright { margin-bottom: 14px; white-space: normal; }
     }
   </style>
 </head>
@@ -172,14 +187,51 @@
     <section class="list" id="ipoList" aria-live="polite"></section>
 
     <footer>
-      <nav class="footer-nav" aria-label="Legal navigation">
-        <a href="/privacy.html">Privacy Policy</a>
-        <a href="/terms.html">Terms of Service</a>
+      <div class="footer-grid">
+        <section class="footer-brand">
+          <h2>Next-Gen IPO Intelligence</h2>
+          <p>Tracking live Grey Market Premiums, estimated listing returns, and real-time retail demand metrics across Indian Primary Markets.</p>
+          <div class="trust-badges">
+            <span class="trust-badge">⚡ Live Sync</span>
+            <span class="trust-badge">🔒 Unbiased Data</span>
+            <span class="trust-badge">🇮🇳 NSE &amp; BSE Tracking</span>
+          </div>
+        </section>
+        <nav class="footer-column" aria-label="Markets">
+          <h3>📊 Markets</h3>
+          <a href="#mainboard">Mainboard IPOs</a>
+          <a href="#sme">SME IPOs</a>
+          <a href="#gmp">Live GMP Tracker</a>
+          <a href="#calendar">Listing Calendar</a>
+          <a href="#subscriptions">Subscription Ratios</a>
+        </nav>
+        <nav class="footer-column" aria-label="Brokers">
+          <h3>🏛 Brokers</h3>
+          <a href="https://upstox.com/open-account/" target="_blank" rel="noopener sponsored">Upstox</a>
+          <a href="https://angelone.in/open-account" target="_blank" rel="noopener sponsored">Angel One</a>
+          <a href="https://zerodha.com/open-account/" target="_blank" rel="noopener sponsored">Zerodha</a>
+          <a href="https://dhan.co/open-account/" target="_blank" rel="noopener sponsored">Dhan</a>
+          <a href="#compare">Compare Charges</a>
+        </nav>
+        <nav class="footer-column" aria-label="Tools">
+          <h3>💡 Tools</h3>
+          <a href="#returns">Estimated Return Calc</a>
+          <a href="#lots">Lot Size Guide</a>
+          <a href="#allotment">Allotment Status</a>
+          <a href="#sebi">SEBI Disclosures</a>
+        </nav>
+      </div>
+      <nav class="trust-bar" aria-label="Platform links">
+        <a href="/about.html">About Platform</a>
         <a href="/disclaimer.html">Disclaimer</a>
-        <a href="mailto:contact@ipopulse.example">Contact Us</a>
+        <a href="/privacy.html">Privacy Policy</a>
+        <a href="/terms.html">Terms of Use</a>
+        <a href="mailto:support@yourdomain.com">Contact &amp; Ads</a>
       </nav>
-      <strong>Regulatory Disclaimer:</strong> Grey Market Premium (GMP), sentiment scores, and estimated listing prices are unofficial market perceptions and not investment advice. GMP can change without notice and should not be the sole basis for an investment decision. We are not a SEBI-registered advisory entity. Review official offer documents and consult a qualified financial adviser before investing.
-      <p class="copyright">© 2026 IPO Pulse. All rights reserved.</p>
+      <div class="footer-bottom">
+        <p class="copyright">© 2026 IPO Tracker. All rights reserved.</p>
+        <p class="risk-statement"><strong>Disclaimer:</strong> Market estimates, Grey Market Premiums (GMP), and sentiment ratings are purely informal dealer-quoted metrics intended solely for educational tracking. We do not provide financial advice, stock calls, or investment recommendations. We are not SEBI-registered advisors. Always read the official Draft Red Herring Prospectus (DRHP) before making investment decisions.</p>
+      </div>
     </footer>
   </main>
   <script>
