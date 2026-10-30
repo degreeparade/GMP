@@ -4,7 +4,7 @@ const fs = require('fs');
 const path = require('path');
 
 const SOURCE_URL = 'https://www.investorgain.com/report/live-ipo-gmp/331/ipo/';
-const FALLBACK_URL = 'https://www.investorgain.com/report/ipo-gmp-live/331/';
+const LIVE_TABLE_URL = 'https://www.investorgain.com/report/ipo-gmp-live/331/';
 
 function getSentimentRating(gmpPercent) {
   if (!Number.isFinite(gmpPercent)) {
@@ -117,22 +117,28 @@ function parseRows(html) {
   return ipos;
 }
 
-async function fetchPage(url) {
+async function fetchPage(url = SOURCE_URL) {
   const response = await axios.get(url, {
     headers: {
-      'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/120 Safari/537.36',
-      Accept: 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8'
+      'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36',
+      'Cache-Control': 'no-cache, no-store, must-revalidate',
+      Pragma: 'no-cache'
     },
-    timeout: 30000
+    timeout: 30000,
+    maxRedirects: 0,
+    validateStatus: (status) => status >= 200 && status < 400
   });
+  if (response.status >= 300 && response.headers.location) {
+    return fetchPage(new URL(response.headers.location, url).toString());
+  }
   return response.data;
 }
 
 async function scrapeIPOData() {
   try {
     console.log('Fetching live IPO GMP data...');
-    let ipos = parseRows(await fetchPage(SOURCE_URL));
-    if (!ipos.length) ipos = parseRows(await fetchPage(FALLBACK_URL));
+    let ipos = parseRows(await fetchPage());
+    if (!ipos.length) ipos = parseRows(await fetchPage(LIVE_TABLE_URL));
     if (!ipos.length) throw new Error('No IPO table rows found.');
 
     const statusWeight = { open: 1, upcoming: 2, closed: 3 };
