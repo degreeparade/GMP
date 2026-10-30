@@ -101,9 +101,9 @@
       display: grid; grid-template-columns: minmax(240px, 1.7fr) repeat(3, minmax(120px, 1fr));
       gap: 20px; align-items: center; padding: 18px 20px; border: 1px solid var(--border);
       border-radius: 14px; background: rgba(14, 20, 34, .86);
-      transition: transform .22s ease, border-color .22s ease, box-shadow .22s ease;
+      cursor: pointer; transition: transform .22s ease, border-color .22s ease, box-shadow .22s ease;
     }
-    .ipo-card:hover { transform: translateY(-3px); border-color: rgba(56, 189, 248, .32); box-shadow: 0 16px 35px rgba(0,0,0,.24); }
+    .ipo-card:hover { transform: translateY(-4px) scale(1.005); border-color: rgba(56, 189, 248, .32); box-shadow: 0 16px 35px rgba(0,0,0,.24); }
     .identity { display: flex; align-items: flex-start; gap: 11px; min-width: 0; }
     .identity .dot { flex: 0 0 auto; margin-top: 7px; }
     .identity h2 { overflow: hidden; margin: 0 0 6px; font-size: .98rem; text-overflow: ellipsis; white-space: nowrap; }
@@ -132,6 +132,8 @@
     .risk-statement strong { color: var(--text); }
     .modal-backdrop { position: fixed; inset: 0; z-index: 20; display: none; place-items: center; padding: 18px; background: rgba(3, 7, 13, .78); backdrop-filter: blur(8px); }
     .modal-backdrop.open { display: grid; }
+    .modal-backdrop.open .modal { animation: modal-in .22s ease-out both; }
+    @keyframes modal-in { from { opacity: 0; transform: translateY(14px) scale(.98); } to { opacity: 1; transform: translateY(0) scale(1); } }
     .modal { width: min(680px, 100%); max-height: min(720px, 92vh); overflow: auto; padding: 24px; border: 1px solid rgba(56,189,248,.28); border-radius: 18px; background: linear-gradient(145deg, #142238, #0e1422); box-shadow: 0 25px 80px rgba(0,0,0,.5); }
     .modal-head { display: flex; justify-content: space-between; gap: 16px; align-items: start; margin-bottom: 18px; }
     .modal-head h2 { margin: 0; font-size: 1.15rem; }
@@ -152,6 +154,21 @@
     .registrars a { display: flex; justify-content: space-between; padding: 12px 14px; border: 1px solid var(--border); border-radius: 9px; color: var(--text); text-decoration: none; background: rgba(255,255,255,.035); }
     .registrars a:hover { border-color: var(--border-bright); color: var(--cyan); }
     .warning-box { padding: 14px; border-left: 3px solid var(--amber); color: #d7dfeb; background: rgba(245,158,11,.08); }
+    .detail-modal { width: min(760px, 100%); }
+    .detail-kicker { display: flex; align-items: center; gap: 9px; margin-bottom: 5px; color: var(--muted); font-size: .72rem; }
+    .category-badge { padding: 3px 8px; border: 1px solid rgba(56,189,248,.35); border-radius: 999px; color: var(--cyan); }
+    .detail-title { margin: 0; font-size: 1.45rem; }
+    .detail-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin: 20px 0; }
+    .detail-cell { padding: 13px; border: 1px solid var(--border); border-radius: 10px; background: rgba(255,255,255,.035); }
+    .detail-cell small { display: block; color: var(--muted); font-size: .67rem; }
+    .detail-cell strong { display: block; margin-top: 5px; font: 600 .88rem var(--mono); }
+    .detail-summary { margin: 20px 0; padding: 15px; border-left: 3px solid var(--cyan); color: #c9d5e5; background: rgba(56,189,248,.06); font-size: .8rem; }
+    .detail-actions { padding-top: 18px; border-top: 1px solid var(--border); }
+    .detail-actions h3 { margin: 0 0 10px; font-size: .85rem; }
+    .action-row { display: flex; flex-wrap: wrap; gap: 9px; }
+    .action-link { display: inline-flex; padding: 9px 13px; border: 1px solid rgba(56,189,248,.35); border-radius: 8px; color: var(--cyan); background: rgba(56,189,248,.08); text-decoration: none; font-size: .75rem; font-weight: 700; }
+    .action-link:hover { border-color: var(--cyan); background: rgba(56,189,248,.16); }
+    .closed-alert { margin-bottom: 12px; padding: 13px; border: 1px solid rgba(244,63,94,.35); border-radius: 9px; color: #fecdd3; background: rgba(244,63,94,.09); font-size: .78rem; }
     @media (max-width: 800px) {
       .broker-grid { grid-template-columns: repeat(2, 1fr); }
       .ipo-card { grid-template-columns: 1.6fr 1fr 1fr; gap: 14px; }
@@ -242,7 +259,6 @@
           <h3>💡 Tools</h3>
           <a href="#returns" onclick="openCalculator(event)">Estimated Return Calc</a>
           <a href="#lots" onclick="openCalculator(event)">Lot Size Guide</a>
-          <a href="#allotment" onclick="openModal('allotmentModal', event)">Allotment Status</a>
           <a href="#sebi" onclick="openModal('sebiModal', event)">SEBI Disclosures</a>
         </nav>
       </div>
@@ -259,6 +275,11 @@
       </div>
     </footer>
   </main>
+  <div class="modal-backdrop" id="ipoDetailModal" role="dialog" aria-modal="true" aria-labelledby="ipoDetailTitle">
+    <section class="modal detail-modal">
+      <div id="ipoDetailContent"></div>
+    </section>
+  </div>
   <div class="modal-backdrop" id="compareModal" role="dialog" aria-modal="true" aria-labelledby="compareTitle">
     <section class="modal">
       <div class="modal-head"><h2 id="compareTitle">Broker Charges Comparison</h2><button class="modal-close" onclick="closeModal('compareModal')" aria-label="Close">&times;</button></div>
@@ -356,6 +377,33 @@
       if (!document.querySelector(".modal-backdrop.open")) document.body.style.overflow = "";
     }
 
+    function openIpoDetail(ipo, event) {
+      if (event && (event.target.closest("a, button, input") || event.key && event.key !== "Enter" && event.key !== " ")) return;
+      const status = ipo.status || "upcoming";
+      const color = status === "closed" ? "red" : (ipo.statusColor || (status === "open" ? "green" : "yellow"));
+      const category = ipo.category === "sme" ? "SME" : "Mainboard";
+      const name = ipo.name || "Unnamed IPO";
+      const price = ipo.priceBand || "—";
+      const gmp = ipo.gmp || "Awaiting GMP";
+      const listing = ipo.estListing || price;
+      const lot = Number(ipo.lotSize || ipo.lot || 0);
+      const issuePrice = Number(String(ipo.priceBand || "").replace(/[^\d.]/g, "")) || 0;
+      const minInvestment = lot && issuePrice ? `₹${(lot * issuePrice).toLocaleString("en-IN")}` : "Not reported";
+      const gain = ipo.gmpPercent === "N/A" || ipo.gmpPercent === null || ipo.gmpPercent === undefined ? "N/A" : `${ipo.gmpPercent}%`;
+      const summary = `About ${name}: This ${category} issue opened with a price band of ${price}. At the current Grey Market Premium of ${gmp}, market participants estimate an opening near ${listing} reflecting ${ipo.sentiment || "Awaiting GMP"} retail demand. Bidding window: ${ipo.dates || "TBA"}.`;
+      const action = status === "open"
+        ? `<h3>Apply through a broker</h3><div class="action-row"><a class="action-link" href="https://upstox.com/open-account/" target="_blank" rel="noopener sponsored">Apply via Upstox ↗</a><a class="action-link" href="https://angelone.in/open-account" target="_blank" rel="noopener sponsored">Apply via Angel One ↗</a><a class="action-link" href="https://zerodha.com/open-account/" target="_blank" rel="noopener sponsored">Apply via Zerodha ↗</a></div>`
+        : status === "closed"
+          ? `<div class="closed-alert">🔴 Bidding for this issue has officially ended. Allotment is finalized by the appointed registrar.</div><h3>Check allotment status</h3><div class="action-row"><a class="action-link" href="https://linkintime.co.in/initial_offer/public-issues.html" target="_blank" rel="noopener">Link Intime Allotment Portal ↗</a><a class="action-link" href="https://ris.kfintech.com/ipostatus/" target="_blank" rel="noopener">KFintech Allotment Portal ↗</a><a class="action-link" href="https://ipo.bigshareonline.com/IPO_Status.html" target="_blank" rel="noopener">Bigshare Services Portal ↗</a></div>`
+          : `<p class="modal-note">This issue is upcoming. Application links will be relevant once the bidding window opens.</p>`;
+      document.getElementById("ipoDetailContent").innerHTML = `
+        <div class="modal-head"><div><div class="detail-kicker"><i class="dot dot-${color}"></i><span class="category-badge">${category}</span><span>${escapeHtml(ipo.statusLabel || "Upcoming")}</span></div><h2 class="detail-title" id="ipoDetailTitle">${escapeHtml(name)}</h2></div><button class="modal-close" onclick="closeModal('ipoDetailModal')" aria-label="Close">&times;</button></div>
+        <div class="detail-grid"><div class="detail-cell"><small>Issue price band</small><strong>${escapeHtml(price)}</strong></div><div class="detail-cell"><small>Current GMP</small><strong>${escapeHtml(gmp)}</strong></div><div class="detail-cell"><small>Estimated listing</small><strong>${escapeHtml(listing)}</strong></div><div class="detail-cell"><small>Expected listing gain</small><strong>${gain}</strong></div><div class="detail-cell"><small>Retail minimum lot</small><strong>${lot ? `${lot} shares` : "Not reported"}</strong></div><div class="detail-cell"><small>Minimum investment</small><strong>${minInvestment}</strong></div></div>
+        <p class="detail-summary">${escapeHtml(summary)}</p>
+        <div class="detail-actions">${action}</div>`;
+      openModal("ipoDetailModal");
+    }
+
     function openCalculator(event) {
       openModal("calculatorModal", event);
       calculateGain();
@@ -388,7 +436,7 @@
         const statusColor = status === "closed" ? "red" : (ipo.statusColor || (status === "open" ? "green" : "yellow"));
         const gmpValue = Number(ipo.gmpVal);
         const gmpClass = Number.isFinite(gmpValue) && gmpValue < 0 ? "gmp-negative" : "gmp-positive";
-        return `<article class="ipo-card">
+        return `<article class="ipo-card" tabindex="0" role="button" aria-label="View details for ${escapeHtml(ipo.name || "IPO")}" onclick='openIpoDetail(${JSON.stringify(ipo).replace(/'/g, "&#39;")}, event)' onkeydown='openIpoDetail(${JSON.stringify(ipo).replace(/'/g, "&#39;")}, event)'>
           <div class="identity"><i class="dot dot-${statusColor}"></i><div><h2>${escapeHtml(ipo.name || "Unnamed IPO")}</h2><span class="status ${escapeHtml(status)}">${escapeHtml(ipo.statusLabel || "Upcoming")} · ${escapeHtml(ipo.dates || "TBA")}</span><div class="rating">${escapeHtml(ipo.ratingStars || "☆☆☆☆☆")}<span>${escapeHtml(ipo.sentiment || "Awaiting GMP")}</span></div></div></div>
           <div><span class="data-label">Issue price</span><span class="data-value">${escapeHtml(ipo.priceBand || "—")}</span></div>
           <div><span class="data-label">Live GMP</span><span class="data-value ${gmpClass}">${escapeHtml(ipo.gmp || "Awaiting GMP")}</span></div>
