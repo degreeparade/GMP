@@ -1,187 +1,273 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>IPO GMP Tracker | Live Grey Market Rates</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>IPO GMP Pulse | Live Grey Market Rates & Sentiment</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg: #090d16;
-      --card-bg: #111827;
-      --card-border: #1f293d;
-      --text: #f9fafb;
-      --muted: #9ca3af;
+      --bg-base: #080b11;
+      --surface: #0e1422;
+      --surface-hover: #141d33;
+      --surface-border: #1a253c;
+      --text-main: #f3f4f6;
+      --text-sub: #94a3b8;
+      --accent: #38bdf8;
+      --accent-glow: rgba(56, 189, 248, 0.15);
       --green: #10b981;
-      --red: #ef4444;
-      --yellow: #f59e0b;
-      --blue: #3b82f6;
+      --green-glow: rgba(16, 185, 129, 0.12);
+      --red: #f43f5e;
+      --red-glow: rgba(244, 63, 94, 0.12);
+      --amber: #f59e0b;
+      --amber-glow: rgba(245, 158, 11, 0.12);
+      --font-mono: 'JetBrains Mono', monospace;
     }
-    * { margin: 0; padding: 0; box-sizing: border-box; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
-    body { background-color: var(--bg); color: var(--text); padding: 24px 16px; min-height: 100vh; }
-    .container { max-width: 960px; margin: 0 auto; }
 
-    /* Header */
-    header { text-align: center; margin-bottom: 24px; }
-    header h1 { font-size: 2rem; font-weight: 800; letter-spacing: -0.5px; margin-bottom: 8px; color: #fff; }
-    header p { color: var(--muted); font-size: 0.95rem; }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      background-color: var(--bg-base);
+      color: var(--text-main);
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      padding: 0 16px 40px 16px;
+      -webkit-font-smoothing: antialiased;
+      background-image: 
+        radial-gradient(ellipse at 50% -20%, rgba(56, 189, 248, 0.08), transparent 70%),
+        radial-gradient(ellipse at 80% 40%, rgba(16, 185, 129, 0.04), transparent 50%);
+      background-attachment: fixed;
+    }
 
-    /* Ad Unit */
-    .ad-slot {
-      background: rgba(31, 41, 55, 0.4);
-      border: 1px dashed var(--card-border);
-      border-radius: 8px;
-      padding: 14px;
-      text-align: center;
-      color: var(--muted);
-      font-size: 0.85rem;
-      margin-bottom: 24px;
-    }
-    .broker-bar {
-      background: linear-gradient(135deg, #16253d, #111827);
-      border: 1px solid #2d4363;
-      border-radius: 12px;
-      padding: 16px;
-      margin-bottom: 24px;
-    }
-    .broker-heading { margin-bottom: 12px; }
-    .broker-heading strong { display: block; font-size: 1.05rem; }
-    .broker-heading span { color: var(--muted); font-size: .82rem; }
-    .broker-actions { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
-    .broker-link {
-      display: flex; flex-direction: column; gap: 3px; position: relative;
-      padding: 12px 30px 12px 13px; border: 1px solid #385174; border-radius: 8px;
-      color: var(--text); text-decoration: none; background: rgba(255,255,255,.04);
-      transition: transform .2s, border-color .2s, background .2s;
-    }
-    .broker-link::after { content: '→'; position: absolute; right: 12px; top: 50%; transform: translateY(-50%); color: var(--green); transition: transform .2s; }
-    .broker-link:hover { transform: translateY(-2px); border-color: var(--green); background: rgba(16,185,129,.1); }
-    .broker-link:hover::after { transform: translate(3px, -50%); }
-    .broker-name { font-weight: 700; }
-    .broker-tag { color: var(--muted); font-size: .72rem; }
-    @media (max-width: 760px) { .broker-actions { grid-template-columns: repeat(2, 1fr); } }
-    @media (max-width: 420px) { .broker-actions { grid-template-columns: 1fr; } }
+    .container { max-width: 980px; margin: 0 auto; }
 
-    /* Status Indicator Bar */
-    .legend-bar {
+    /* Header & Branding */
+    header { text-align: center; padding: 36px 0 20px 0; }
+    .brand-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 12px;
+      border-radius: 999px;
+      background: rgba(56, 189, 248, 0.08);
+      border: 1px solid rgba(56, 189, 248, 0.25);
+      color: var(--accent);
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 12px;
+    }
+    .pulse-dot {
+      width: 6px;
+      height: 6px;
+      background: var(--accent);
+      border-radius: 50%;
+      box-shadow: 0 0 8px var(--accent);
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0% { transform: scale(0.95); opacity: 0.6; }
+      50% { transform: scale(1.4); opacity: 1; }
+      100% { transform: scale(0.95); opacity: 0.6; }
+    }
+    h1 {
+      font-size: 2.2rem;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      background: linear-gradient(180deg, #ffffff 30%, #94a3b8 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 6px;
+    }
+    header p { color: var(--text-sub); font-size: 0.95rem; }
+
+    /* Top Broker Launchpad Bar */
+    .broker-hub {
+      background: linear-gradient(135deg, rgba(20, 29, 51, 0.7), rgba(14, 20, 34, 0.7));
+      border: 1px solid var(--surface-border);
+      border-radius: 16px;
+      padding: 18px 20px;
+      margin: 24px 0;
+      backdrop-filter: blur(12px);
+      box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+    }
+    .broker-hub-header {
       display: flex;
-      justify-content: center;
-      gap: 20px;
-      margin-bottom: 20px;
-      padding: 10px 16px;
-      background: var(--card-bg);
-      border: 1px solid var(--card-border);
-      border-radius: 30px;
-      font-size: 0.82rem;
-      color: var(--muted);
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+      font-size: 0.85rem;
+      color: var(--text-sub);
     }
-    .legend-item { display: flex; align-items: center; gap: 6px; }
-    .dot { width: 9px; height: 9px; border-radius: 50%; display: inline-block; }
-    .dot-green { background-color: var(--green); box-shadow: 0 0 8px rgba(16, 185, 129, 0.6); }
-    .dot-yellow { background-color: var(--yellow); }
-    .dot-red { background-color: var(--red); }
-
-    /* Controls: Search & Tabs */
-    .controls { display: flex; flex-direction: column; gap: 14px; margin-bottom: 20px; }
-    @media (min-width: 640px) {
-      .controls { flex-direction: row; justify-content: space-between; align-items: center; }
+    .broker-hub-header strong { color: #fff; font-weight: 700; }
+    .broker-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 10px;
     }
-    .search-box {
-      position: relative;
-      flex: 1;
-      max-width: 380px;
-    }
-    .search-box input {
-      width: 100%;
-      background: var(--card-bg);
-      border: 1px solid var(--card-border);
-      color: var(--text);
+    .broker-btn {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
       padding: 10px 14px;
-      border-radius: 8px;
-      font-size: 0.9rem;
-      outline: none;
-      transition: border-color 0.2s;
-    }
-    .search-box input:focus { border-color: var(--blue); }
-
-    .tabs { display: flex; gap: 8px; }
-    .tab-btn {
-      background: var(--card-bg);
-      border: 1px solid var(--card-border);
-      color: var(--muted);
-      padding: 9px 18px;
-      border-radius: 8px;
-      cursor: pointer;
-      font-size: 0.88rem;
-      font-weight: 600;
-      transition: all 0.2s;
-    }
-    .tab-btn.active {
-      background: var(--blue);
-      border-color: var(--blue);
-      color: #fff;
-    }
-
-    /* IPO Line Item Rows */
-    .list-container { display: flex; flex-direction: column; gap: 12px; }
-    .ipo-row {
-      background: var(--card-bg);
-      border: 1px solid var(--card-border);
       border-radius: 10px;
-      padding: 16px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.07);
+      text-decoration: none;
+      color: #fff;
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .broker-btn:hover {
+      background: rgba(56, 189, 248, 0.1);
+      border-color: rgba(56, 189, 248, 0.4);
+      transform: translateY(-2px);
+    }
+    .broker-info { display: flex; flex-direction: column; }
+    .broker-name { font-weight: 700; font-size: 0.9rem; }
+    .broker-perk { font-size: 0.72rem; color: var(--text-sub); }
+    .broker-arrow { color: var(--accent); font-size: 1rem; font-weight: bold; }
+
+    /* Legend Pills */
+    .legend-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      margin-bottom: 20px;
+      font-size: 0.8rem;
+      color: var(--text-sub);
+    }
+    .legend-tag { display: flex; align-items: center; gap: 6px; }
+    .status-pip { width: 8px; height: 8px; border-radius: 50%; }
+    .pip-green { background: var(--green); box-shadow: 0 0 10px var(--green); }
+    .pip-amber { background: var(--amber); box-shadow: 0 0 8px var(--amber); }
+    .pip-red { background: var(--red); }
+
+    /* Interactive Controls */
+    .filter-bar {
       display: flex;
       flex-direction: column;
       gap: 12px;
-      transition: transform 0.15s, border-color 0.15s;
+      margin-bottom: 20px;
     }
-    .ipo-row:hover { border-color: #374151; }
-    @media (min-width: 768px) {
-      .ipo-row { flex-direction: row; align-items: center; justify-content: space-between; }
+    @media (min-width: 640px) {
+      .filter-bar { flex-direction: row; justify-content: space-between; align-items: center; }
+    }
+    .tabs-wrapper {
+      display: inline-flex;
+      background: var(--surface);
+      border: 1px solid var(--surface-border);
+      padding: 4px;
+      border-radius: 12px;
+    }
+    .tab-trigger {
+      background: transparent;
+      border: none;
+      color: var(--text-sub);
+      padding: 8px 18px;
+      font-size: 0.88rem;
+      font-weight: 600;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .tab-trigger.active {
+      background: var(--surface-hover);
+      color: #fff;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .search-input-wrap {
+      position: relative;
+      flex: 1;
+      max-width: 340px;
+    }
+    .search-input-wrap input {
+      width: 100%;
+      background: var(--surface);
+      border: 1px solid var(--surface-border);
+      border-radius: 10px;
+      padding: 10px 14px;
+      color: #fff;
+      font-size: 0.88rem;
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .search-input-wrap input:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px var(--accent-glow);
     }
 
-    .ipo-main-info { display: flex; align-items: flex-start; gap: 12px; flex: 2; }
-    .ipo-title-group h2 { font-size: 1.1rem; font-weight: 700; color: #fff; margin-bottom: 4px; }
-    .status-badge {
+    /* Clean Card Items */
+    .ipo-feed { display: flex; flex-direction: column; gap: 10px; }
+    .ipo-card {
+      background: var(--surface);
+      border: 1px solid var(--surface-border);
+      border-radius: 14px;
+      padding: 16px 20px;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 14px;
+      transition: all 0.2s ease;
+    }
+    .ipo-card:hover {
+      background: var(--surface-hover);
+      border-color: rgba(56, 189, 248, 0.3);
+      transform: translateY(-1px);
+    }
+    @media (min-width: 768px) {
+      .ipo-card {
+        grid-template-columns: 1.8fr 1fr 1fr 1fr;
+        align-items: center;
+        gap: 16px;
+      }
+    }
+
+    /* Left: Name & Status */
+    .card-meta { display: flex; flex-direction: column; gap: 6px; }
+    .name-line { display: flex; align-items: center; gap: 8px; }
+    .name-line h2 {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: #fff;
+      letter-spacing: -0.01em;
+    }
+    .badge-status {
       display: inline-flex;
       align-items: center;
       gap: 5px;
-      font-size: 0.75rem;
-      font-weight: 600;
+      font-size: 0.72rem;
+      font-weight: 700;
       padding: 2px 8px;
-      border-radius: 4px;
-      background: rgba(255,255,255,0.06);
+      border-radius: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
     }
-    .status-badge.open { color: var(--green); border: 1px solid rgba(16,185,129,0.3); }
-    .status-badge.upcoming { color: var(--yellow); border: 1px solid rgba(245,158,11,0.3); }
-    .status-badge.closed { color: var(--red); border: 1px solid rgba(239,68,68,0.3); }
+    .badge-status.open { background: var(--green-glow); color: var(--green); border: 1px solid rgba(16, 185, 129, 0.3); }
+    .badge-status.upcoming { background: var(--amber-glow); color: var(--amber); border: 1px solid rgba(245, 158, 11, 0.3); }
+    .badge-status.closed { background: var(--red-glow); color: var(--red); border: 1px solid rgba(244, 63, 94, 0.3); }
 
-    .rating-wrap { color: #f59e0b; font-size: 0.9rem; margin-top: 4px; }
-    .rating-wrap span { color: var(--muted); font-size: 0.78rem; margin-left: 4px; }
+    .rating-line { display: flex; align-items: center; gap: 6px; font-size: 0.8rem; }
+    .star-display { color: #f59e0b; font-size: 0.85rem; }
+    .sentiment-tag { color: var(--text-sub); font-size: 0.75rem; }
 
-    .ipo-numbers {
-      display: flex;
-      gap: 20px;
-      flex: 2;
-      justify-content: space-between;
-      border-top: 1px solid rgba(255,255,255,0.05);
-      border-bottom: 1px solid rgba(255,255,255,0.05);
-      padding: 10px 0;
-    }
-    @media (min-width: 768px) {
-      .ipo-numbers { border: none; padding: 0; justify-content: flex-end; gap: 28px; }
-    }
-    .num-col { display: flex; flex-direction: column; }
-    .num-label { font-size: 0.72rem; color: var(--muted); text-transform: uppercase; margin-bottom: 2px; }
-    .num-val { font-size: 0.95rem; font-weight: 700; }
-    .gmp-green { color: var(--green); }
-    .gmp-red { color: var(--red); }
+    /* Middle Data Columns */
+    .stat-block { display: flex; flex-direction: column; }
+    .stat-label { font-size: 0.7rem; color: var(--text-sub); text-transform: uppercase; font-weight: 600; letter-spacing: 0.05em; margin-bottom: 2px; }
+    .stat-val { font-family: var(--font-mono); font-size: 0.98rem; font-weight: 700; }
+    .val-gmp-up { color: var(--green); text-shadow: 0 0 10px rgba(16, 185, 129, 0.3); }
+    .val-gmp-down { color: var(--red); }
+    .date-val { font-size: 0.82rem; color: var(--text-main); font-weight: 500; }
 
+    /* Footer */
     footer {
-      margin-top: 40px;
-      padding-top: 20px;
-      border-top: 1px solid var(--card-border);
+      margin-top: 48px;
+      padding-top: 24px;
+      border-top: 1px solid var(--surface-border);
       text-align: center;
-      font-size: 0.78rem;
-      color: var(--muted);
+      font-size: 0.76rem;
+      color: var(--text-sub);
       line-height: 1.6;
     }
   </style>
@@ -190,146 +276,162 @@
 
 <div class="container">
   <header>
+    <div class="brand-pill">
+      <span class="pulse-dot"></span>
+      Live Market Intelligence
+    </div>
     <h1>Indian IPO GMP Tracker</h1>
-    <p>Live Grey Market Premium estimates & automated sentiment scores.</p>
+    <p>Live Grey Market Premiums, estimated gains, and sentiment scoring</p>
   </header>
 
-  <!-- Google AdSense Slot -->
-  <div class="ad-slot">
-    [Advertisement Placement - Responsive Banner]
-  </div>
-
-  <section class="broker-bar" aria-label="Broker accounts">
-    <div class="broker-heading">
-      <strong>Open Free Demat Account to Apply for IPOs</strong>
-      <span>Choose a trusted broker to get started.</span>
+  <!-- Broker Launchpad Bar -->
+  <section class="broker-hub">
+    <div class="broker-hub-header">
+      <strong>🚀 Open Free Demat Account to Apply</strong>
+      <span>Approved official partners</span>
     </div>
-    <div class="broker-actions">
-      <a class="broker-link" href="https://zerodha.com/open-account/" target="_blank" rel="noopener sponsored"><span class="broker-name">Zerodha</span><span class="broker-tag">Top Discount Broker</span></a>
-      <a class="broker-link" href="https://angelone.in/open-account" target="_blank" rel="noopener sponsored"><span class="broker-name">Angel One</span><span class="broker-tag">Free Account + Zero Brokerage</span></a>
-      <a class="broker-link" href="https://upstox.com/open-account/" target="_blank" rel="noopener sponsored"><span class="broker-name">Upstox</span><span class="broker-tag">Fast Online Demat</span></a>
-      <a class="broker-link" href="https://groww.in/open-account" target="_blank" rel="noopener sponsored"><span class="broker-name">Groww / Dhan</span><span class="broker-tag">Zero AMC</span></a>
+    <div class="broker-grid">
+      <a href="https://your-upstox-link.com" target="_blank" rel="noopener" class="broker-btn">
+        <div class="broker-info">
+          <span class="broker-name">Upstox</span>
+          <span class="broker-perk">Instant ₹0 Paperless KYC</span>
+        </div>
+        <span class="broker-arrow">&rarr;</span>
+      </a>
+      <a href="https://your-angelone-link.com" target="_blank" rel="noopener" class="broker-btn">
+        <div class="broker-info">
+          <span class="broker-name">Angel One</span>
+          <span class="broker-perk">Zero Brokerage on Delivery</span>
+        </div>
+        <span class="broker-arrow">&rarr;</span>
+      </a>
+      <a href="https://your-zerodha-link.com" target="_blank" rel="noopener" class="broker-btn">
+        <div class="broker-info">
+          <span class="broker-name">Zerodha</span>
+          <span class="broker-perk">India's Largest Broker</span>
+        </div>
+        <span class="broker-arrow">&rarr;</span>
+      </a>
+      <a href="https://your-dhan-link.com" target="_blank" rel="noopener" class="broker-btn">
+        <div class="broker-info">
+          <span class="broker-name">Dhan</span>
+          <span class="broker-perk">Fast Direct UPI Applications</span>
+        </div>
+        <span class="broker-arrow">&rarr;</span>
+      </a>
     </div>
   </section>
 
-  <!-- Legend Bar Explaining Dots -->
-  <div class="legend-bar">
-    <div class="legend-item"><span class="dot dot-green"></span> <strong>Open Now</strong> (Bidding active)</div>
-    <div class="legend-item"><span class="dot dot-yellow"></span> <strong>Upcoming</strong> (Dates announced)</div>
-    <div class="legend-item"><span class="dot dot-red"></span> <strong>Closed</strong> (Listing / Closed)</div>
+  <!-- Legend -->
+  <div class="legend-row">
+    <div class="legend-tag"><span class="status-pip pip-green"></span> Open Now</div>
+    <div class="legend-tag"><span class="status-pip pip-amber"></span> Upcoming</div>
+    <div class="legend-tag"><span class="status-pip pip-red"></span> Closed / Listed</div>
   </div>
 
-  <!-- Search and Tabs -->
-  <div class="controls">
-    <div class="tabs">
-      <button class="tab-btn active" onclick="switchCategory('mainboard', this)">Mainboard IPOs</button>
-      <button class="tab-btn" onclick="switchCategory('sme', this)">SME IPOs</button>
+  <!-- Filter & Tab Navigation -->
+  <div class="filter-bar">
+    <div class="tabs-wrapper">
+      <button class="tab-trigger active" onclick="setCategory('mainboard', this)">Mainboard IPOs</button>
+      <button class="tab-trigger" onclick="setCategory('sme', this)">SME IPOs</button>
     </div>
-    <div class="search-box">
-      <input type="text" id="searchInput" placeholder="Search by IPO name..." oninput="filterData()">
+    <div class="search-input-wrap">
+      <input type="text" id="ipoSearch" placeholder="Search company name..." oninput="handleFilter()" autocomplete="off">
     </div>
   </div>
 
-  <!-- Scrollable Line by Line List -->
-  <div class="list-container" id="ipoList">
-    <p style="color: var(--muted); text-align: center; padding: 20px;">Loading IPO data...</p>
+  <!-- The Feed List -->
+  <div class="ipo-feed" id="feedContainer">
+    <p style="color: var(--text-sub); text-align: center; padding: 40px 0;">Loading market feeds...</p>
   </div>
 
   <footer>
-    <p><strong>Regulatory Disclaimer:</strong> Grey Market Premium (GMP) and Star Ratings are informal, non-official market perceptions gathered from dealers. They do not constitute investment advice, stock recommendations, or solicitations. We are not a SEBI-registered advisory entity. Please consult your certified financial planner and inspect the official Red Herring Prospectus (RHP) before applying.</p>
+    <p><strong>Disclaimer:</strong> Grey Market Premium (GMP) numbers and star ratings are informal, non-official market indications sourced from market participants. We do not provide investment advice or stock recommendations. We are not a SEBI-registered advisor. Please consult an independent certified financial planner and inspect the official Red Herring Prospectus (RHP) prior to bidding.</p>
   </footer>
 </div>
 
 <script>
-  let allIpos = [];
-  let currentCategory = 'mainboard';
+  let dataset = [];
+  let currentTab = 'mainboard';
 
-  async function init() {
+  async function loadData() {
     try {
-      const res = await fetch('data.json?t=' + Date.now(), { cache: 'no-store' });
-      allIpos = await res.json();
-      render();
+      const res = await fetch(`data.json?t=${Date.now()}`, { cache: 'no-store' });
+      dataset = await res.json();
+      renderFeed();
     } catch (e) {
-      document.getElementById('ipoList').innerHTML = '<p style="color:red; text-align:center;">Failed to load IPO data. Run node update.js first.</p>';
+      document.getElementById('feedContainer').innerHTML = 
+        '<p style="color:var(--red); text-align:center; padding: 30px;">Error loading live records. Run node update.js to regenerate data.json.</p>';
     }
   }
 
-  function switchCategory(cat, btn) {
-    currentCategory = cat;
-    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  function setCategory(cat, btn) {
+    currentTab = cat;
+    document.querySelectorAll('.tab-trigger').forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
-    render();
+    renderFeed();
   }
 
-  function filterData() {
-    render();
+  function handleFilter() {
+    renderFeed();
   }
 
-  function render() {
-    const query = document.getElementById('searchInput').value.toLowerCase().trim();
-    const container = document.getElementById('ipoList');
+  function renderFeed() {
+    const query = document.getElementById('ipoSearch').value.toLowerCase().trim();
+    const container = document.getElementById('feedContainer');
 
-    const filtered = allIpos.filter(ipo => {
-      const matchesCat = ipo.category === currentCategory;
-      const matchesSearch = String(ipo.name || 'Unnamed IPO').toLowerCase().includes(query);
-      return matchesCat && matchesSearch;
+    const matched = dataset.filter(ipo => {
+      const isRightCat = ipo.category === currentTab;
+      const isRightQuery = ipo.name.toLowerCase().includes(query);
+      return isRightCat && isRightQuery;
     });
 
-    if (filtered.length === 0) {
-      container.innerHTML = '<p style="color: var(--muted); text-align: center; padding: 30px;">No IPOs found matching this filter.</p>';
+    if (matched.length === 0) {
+      container.innerHTML = '<p style="color:var(--text-sub); text-align:center; padding: 40px 0;">No active listings found matching this criteria.</p>';
       return;
     }
 
-    container.innerHTML = filtered.map(ipo => {
-      const name = ipo.name || 'Unnamed IPO';
-      const status = ipo.status || 'upcoming';
-      const statusLabel = ipo.statusLabel || 'Upcoming';
-      const statusColor = status === 'closed' ? 'red' : (ipo.statusColor || (status === 'upcoming' ? 'yellow' : 'green'));
-      const dates = ipo.dates || 'TBA';
-      const ratingStars = ipo.ratingStars || '☆☆☆☆☆';
-      const ratingScore = ipo.ratingScore || 'N/A';
-      const sentiment = ipo.sentiment || 'Awaiting GMP';
-      const priceBand = ipo.priceBand || '₹0';
-      const gmp = ipo.gmp || 'Awaiting GMP';
-      const estListing = ipo.estListing || priceBand;
-      const gmpClass = Number(ipo.gmpVal) < 0 ? 'gmp-red' : 'gmp-green';
+    container.innerHTML = matched.map(ipo => {
+      const isUp = (ipo.gmpVal || 0) >= 0;
+      const gmpClass = isUp ? 'val-gmp-up' : 'val-gmp-down';
+      const status = ipo.status || 'closed';
+      const statusLabel = ipo.statusLabel || (status === 'open' ? 'Open Now' : status === 'upcoming' ? 'Upcoming' : 'Closed');
+      const pipClass = status === 'open' ? 'pip-green' : status === 'upcoming' ? 'pip-amber' : 'pip-red';
 
       return `
-        <div class="ipo-row">
-          <div class="ipo-main-info">
-            <span class="dot dot-${statusColor}" style="margin-top: 6px;"></span>
-            <div class="ipo-title-group">
-              <h2>${name}</h2>
-              <div class="status-badge ${status}">
-                ${statusLabel} • ${dates}
-              </div>
-              <div class="rating-wrap">
-                ${ratingStars} <span>(${ratingScore}/5 - ${sentiment})</span>
-              </div>
+        <article class="ipo-card">
+          <div class="card-meta">
+            <div class="name-line">
+              <span class="status-pip ${pipClass}"></span>
+              <h2>${ipo.name}</h2>
+              <span class="badge-status ${status}">${statusLabel}</span>
+            </div>
+            <div class="rating-line">
+              <span class="star-display">${ipo.ratingStars || '☆☆☆☆☆'}</span>
+              <span class="sentiment-tag">${ipo.ratingScore || 'N/A'}/5 • ${ipo.sentiment || 'Awaiting Data'}</span>
             </div>
           </div>
 
-          <div class="ipo-numbers">
-            <div class="num-col">
-              <span class="num-label">Issue Price</span>
-              <span class="num-val">${priceBand}</span>
-            </div>
-            <div class="num-col">
-              <span class="num-label">Live GMP</span>
-              <span class="num-val ${gmpClass}">${gmp}</span>
-            </div>
-            <div class="num-col">
-              <span class="num-label">Est. Listing</span>
-              <span class="num-val">${estListing}</span>
-            </div>
+          <div class="stat-block">
+            <span class="stat-label">Issue Price</span>
+            <span class="stat-val">${ipo.priceBand || 'TBA'}</span>
           </div>
 
-        </div>
+          <div class="stat-block">
+            <span class="stat-label">Live GMP</span>
+            <span class="stat-val ${gmpClass}">${ipo.gmp || '₹0'}</span>
+          </div>
+
+          <div class="stat-block">
+            <span class="stat-label">Est. Listing (${ipo.dates || 'TBA'})</span>
+            <span class="stat-val">${ipo.estListing || ipo.priceBand || '—'}</span>
+          </div>
+        </article>
       `;
     }).join('');
   }
 
-  init();
+  loadData();
 </script>
 </body>
 </html>
