@@ -115,6 +115,10 @@
     .data-value { color: var(--text); font: 600 .88rem var(--mono); white-space: nowrap; }
     .gmp-positive { color: var(--green); } .gmp-negative { color: var(--red); }
     footer { margin: 42px 0 30px; padding-top: 20px; border-top: 1px solid var(--border); color: var(--muted); font-size: .72rem; line-height: 1.7; }
+    .footer-nav { display: flex; justify-content: center; flex-wrap: wrap; gap: 8px 18px; margin-bottom: 14px; }
+    .footer-nav a { color: var(--cyan); text-decoration: none; }
+    .footer-nav a:hover { text-decoration: underline; }
+    .copyright { margin: 12px 0 0; text-align: center; color: #64748b; font-size: .68rem; }
     @media (max-width: 800px) {
       .broker-grid { grid-template-columns: repeat(2, 1fr); }
       .ipo-card { grid-template-columns: 1.6fr 1fr 1fr; gap: 14px; }
@@ -167,7 +171,16 @@
     <p class="meta" id="meta" aria-live="polite">Loading live IPO data...</p>
     <section class="list" id="ipoList" aria-live="polite"></section>
 
-    <footer><strong>Regulatory Disclaimer:</strong> Grey Market Premium (GMP), sentiment scores, and estimated listing prices are unofficial market perceptions and not investment advice. GMP can change without notice and should not be the sole basis for an investment decision. We are not a SEBI-registered advisory entity. Review official offer documents and consult a qualified financial adviser before investing.</footer>
+    <footer>
+      <nav class="footer-nav" aria-label="Legal navigation">
+        <a href="/privacy.html">Privacy Policy</a>
+        <a href="/terms.html">Terms of Service</a>
+        <a href="/disclaimer.html">Disclaimer</a>
+        <a href="mailto:contact@ipopulse.example">Contact Us</a>
+      </nav>
+      <strong>Regulatory Disclaimer:</strong> Grey Market Premium (GMP), sentiment scores, and estimated listing prices are unofficial market perceptions and not investment advice. GMP can change without notice and should not be the sole basis for an investment decision. We are not a SEBI-registered advisory entity. Review official offer documents and consult a qualified financial adviser before investing.
+      <p class="copyright">© 2026 IPO Pulse. All rights reserved.</p>
+    </footer>
   </main>
   <script>
     let allIpos = [];
