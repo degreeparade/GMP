@@ -255,7 +255,7 @@
 
     const filtered = allIpos.filter(ipo => {
       const matchesCat = ipo.category === currentCategory;
-      const matchesSearch = ipo.name.toLowerCase().includes(query);
+      const matchesSearch = String(ipo.name || 'Unnamed IPO').toLowerCase().includes(query);
       return matchesCat && matchesSearch;
     });
 
@@ -265,20 +265,32 @@
     }
 
     container.innerHTML = filtered.map(ipo => {
-      const gmpClass = ipo.gmpVal >= 0 ? 'gmp-green' : 'gmp-red';
-      const isClosed = ipo.status === 'closed';
+      const name = ipo.name || 'Unnamed IPO';
+      const status = ipo.status || 'upcoming';
+      const statusLabel = ipo.statusLabel || 'Upcoming';
+      const statusColor = ipo.statusColor || (ipo.gmpVal < 0 ? 'red' : 'green');
+      const dates = ipo.dates || 'TBA';
+      const ratingStars = ipo.ratingStars || '☆☆☆☆☆';
+      const ratingScore = ipo.ratingScore || 'N/A';
+      const sentiment = ipo.sentiment || 'Awaiting GMP';
+      const priceBand = ipo.priceBand || '₹0';
+      const gmp = ipo.gmp || 'Awaiting GMP';
+      const estListing = ipo.estListing || priceBand;
+      const applyUrl = ipo.applyUrl || '#';
+      const gmpClass = Number(ipo.gmpVal) < 0 ? 'gmp-red' : 'gmp-green';
+      const isClosed = status === 'closed';
 
       return `
         <div class="ipo-row">
           <div class="ipo-main-info">
-            <span class="dot dot-${ipo.statusColor}" style="margin-top: 6px;"></span>
+            <span class="dot dot-${statusColor}" style="margin-top: 6px;"></span>
             <div class="ipo-title-group">
-              <h2>${ipo.name}</h2>
-              <div class="status-badge ${ipo.status}">
-                ${ipo.statusLabel} • ${ipo.dates}
+              <h2>${name}</h2>
+              <div class="status-badge ${status}">
+                ${statusLabel} • ${dates}
               </div>
               <div class="rating-wrap">
-                ${ipo.ratingStars} <span>(${ipo.ratingScore}/5 - ${ipo.sentiment})</span>
+                ${ratingStars} <span>(${ratingScore}/5 - ${sentiment})</span>
               </div>
             </div>
           </div>
@@ -286,22 +298,22 @@
           <div class="ipo-numbers">
             <div class="num-col">
               <span class="num-label">Issue Price</span>
-              <span class="num-val">${ipo.priceBand}</span>
+              <span class="num-val">${priceBand}</span>
             </div>
             <div class="num-col">
               <span class="num-label">Live GMP</span>
-              <span class="num-val ${gmpClass}">${ipo.gmp}</span>
+              <span class="num-val ${gmpClass}">${gmp}</span>
             </div>
             <div class="num-col">
               <span class="num-label">Est. Listing</span>
-              <span class="num-val">${ipo.estListing}</span>
+              <span class="num-val">${estListing}</span>
             </div>
           </div>
 
           <div class="ipo-actions">
             ${isClosed 
               ? `<span class="btn-apply disabled">Closed</span>`
-              : `<a href="${ipo.applyUrl}" target="_blank" rel="noopener noreferrer" class="btn-apply">Apply &rarr;</a>`
+              : `<a href="${applyUrl}" target="_blank" rel="noopener noreferrer" class="btn-apply">Apply &rarr;</a>`
             }
           </div>
         </div>
