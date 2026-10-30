@@ -168,6 +168,8 @@
     .action-row { display: flex; flex-wrap: wrap; gap: 9px; }
     .action-link { display: inline-flex; padding: 9px 13px; border: 1px solid rgba(56,189,248,.35); border-radius: 8px; color: var(--cyan); background: rgba(56,189,248,.08); text-decoration: none; font-size: .75rem; font-weight: 700; }
     .action-link:hover { border-color: var(--cyan); background: rgba(56,189,248,.16); }
+    .btn-allotment { display: inline-flex; padding: 10px 14px; border: 1px solid rgba(244,63,94,.42); border-radius: 8px; color: #fecdd3; background: rgba(244,63,94,.1); text-decoration: none; font-size: .75rem; font-weight: 700; }
+    .btn-allotment:hover { border-color: var(--red); background: rgba(244,63,94,.18); }
     .closed-alert { margin-bottom: 12px; padding: 13px; border: 1px solid rgba(244,63,94,.35); border-radius: 9px; color: #fecdd3; background: rgba(244,63,94,.09); font-size: .78rem; }
     @media (max-width: 800px) {
       .broker-grid { grid-template-columns: repeat(2, 1fr); }
@@ -304,13 +306,6 @@
       <div class="calc-results"><div class="calc-result"><small>Total investment required</small><strong id="calcInvestment">₹5,000</strong></div><div class="calc-result"><small>Expected listing profit</small><strong id="calcProfit">₹0</strong></div><div class="calc-result"><small>Expected listing percentage</small><strong id="calcPercent">0.00%</strong></div></div>
     </section>
   </div>
-  <div class="modal-backdrop" id="allotmentModal" role="dialog" aria-modal="true" aria-labelledby="allotmentTitle">
-    <section class="modal">
-      <div class="modal-head"><h2 id="allotmentTitle">Check Allotment Status</h2><button class="modal-close" onclick="closeModal('allotmentModal')" aria-label="Close">&times;</button></div>
-      <p class="modal-note">Use the official registrar portal named in your IPO application.</p>
-      <div class="registrars"><a href="https://linkintime.co.in/" target="_blank" rel="noopener">Link Intime <span>↗</span></a><a href="https://ipostatus.kfintech.com/" target="_blank" rel="noopener">KFintech <span>↗</span></a><a href="https://www.bigshareonline.com/" target="_blank" rel="noopener">Bigshare Services <span>↗</span></a><a href="https://www.skylinerta.com/" target="_blank" rel="noopener">Skyline <span>↗</span></a></div>
-    </section>
-  </div>
   <div class="modal-backdrop" id="sebiModal" role="dialog" aria-modal="true" aria-labelledby="sebiTitle">
     <section class="modal">
       <div class="modal-head"><h2 id="sebiTitle">SEBI Disclosure</h2><button class="modal-close" onclick="closeModal('sebiModal')" aria-label="Close">&times;</button></div>
@@ -394,7 +389,7 @@
       const action = status === "open"
         ? `<h3>Apply through a broker</h3><div class="action-row"><a class="action-link" href="https://upstox.com/open-account/" target="_blank" rel="noopener sponsored">Apply via Upstox ↗</a><a class="action-link" href="https://angelone.in/open-account" target="_blank" rel="noopener sponsored">Apply via Angel One ↗</a><a class="action-link" href="https://zerodha.com/open-account/" target="_blank" rel="noopener sponsored">Apply via Zerodha ↗</a></div>`
         : status === "closed"
-          ? `<div class="closed-alert">🔴 Bidding for this issue has officially ended. Allotment is finalized by the appointed registrar.</div><h3>Check allotment status</h3><div class="action-row"><a class="action-link" href="https://linkintime.co.in/initial_offer/public-issues.html" target="_blank" rel="noopener">Link Intime Allotment Portal ↗</a><a class="action-link" href="https://ris.kfintech.com/ipostatus/" target="_blank" rel="noopener">KFintech Allotment Portal ↗</a><a class="action-link" href="https://ipo.bigshareonline.com/IPO_Status.html" target="_blank" rel="noopener">Bigshare Services Portal ↗</a></div>`
+          ? `<div class="closed-alert">🔴 Bidding for this issue has officially ended. Allotment is finalized by the appointed registrar.</div><h3>Check allotment status</h3><a class="btn-allotment" href="${escapeHtml(ipo.allotmentUrl || '#')}" target="_blank" rel="noopener">Check Official Allotment on ${escapeHtml(ipo.registrarName || "appointed registrar")} &rarr;</a>`
           : `<p class="modal-note">This issue is upcoming. Application links will be relevant once the bidding window opens.</p>`;
       document.getElementById("ipoDetailContent").innerHTML = `
         <div class="modal-head"><div><div class="detail-kicker"><i class="dot dot-${color}"></i><span class="category-badge">${category}</span><span>${escapeHtml(ipo.statusLabel || "Upcoming")}</span></div><h2 class="detail-title" id="ipoDetailTitle">${escapeHtml(name)}</h2></div><button class="modal-close" onclick="closeModal('ipoDetailModal')" aria-label="Close">&times;</button></div>

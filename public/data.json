@@ -14,7 +14,9 @@
     "dates": "30-Oct to 3-Nov",
     "ratingStars": "★★★☆☆",
     "ratingScore": "3.0",
-    "sentiment": "Moderate"
+    "sentiment": "Moderate",
+    "registrarName": "Kfin Technologies",
+    "allotmentUrl": "https://ris.kfintech.com/ipostatus/"
   },
   {
     "id": "johnsoncab-electricals-3",
@@ -31,7 +33,9 @@
     "dates": "30-Oct to 3-Nov",
     "ratingStars": "★★☆☆☆",
     "ratingScore": "2.0",
-    "sentiment": "Subdued"
+    "sentiment": "Subdued",
+    "registrarName": "Maashitla",
+    "allotmentUrl": "https://maashitla.com/allotment-status"
   },
   {
     "id": "vectras-enprocon-4",
@@ -48,7 +52,9 @@
     "dates": "30-Oct to 3-Nov",
     "ratingStars": "☆☆☆☆☆",
     "ratingScore": "N/A",
-    "sentiment": "Awaiting GMP"
+    "sentiment": "Awaiting GMP",
+    "registrarName": "Link Intime",
+    "allotmentUrl": "https://linkintime.co.in/initial_offer/public-issues.html"
   },
   {
     "id": "maxwell-engineering-solutions-5",
@@ -65,7 +71,9 @@
     "dates": "30-Oct to 3-Nov",
     "ratingStars": "★★★★☆",
     "ratingScore": "4.0",
-    "sentiment": "Healthy"
+    "sentiment": "Healthy",
+    "registrarName": "Kfin Technologies",
+    "allotmentUrl": "https://ris.kfintech.com/ipostatus/"
   },
   {
     "id": "antala-industries-6",
@@ -82,7 +90,9 @@
     "dates": "29-Oct to 2-Nov",
     "ratingStars": "☆☆☆☆☆",
     "ratingScore": "N/A",
-    "sentiment": "Awaiting GMP"
+    "sentiment": "Awaiting GMP",
+    "registrarName": "Bigshare Services",
+    "allotmentUrl": "https://ipo.bigshareonline.com/IPO_Status.html"
   },
   {
     "id": "bombay-coated-and-special-steels-7",
@@ -99,7 +109,9 @@
     "dates": "29-Oct to 2-Nov",
     "ratingStars": "★★☆☆☆",
     "ratingScore": "2.0",
-    "sentiment": "Subdued"
+    "sentiment": "Subdued",
+    "registrarName": "Kfin Technologies",
+    "allotmentUrl": "https://ris.kfintech.com/ipostatus/"
   },
   {
     "id": "m-k-sons-fine-jewels-8",
@@ -116,7 +128,9 @@
     "dates": "28-Oct to 30-Oct",
     "ratingStars": "★★☆☆☆",
     "ratingScore": "2.0",
-    "sentiment": "Subdued"
+    "sentiment": "Subdued",
+    "registrarName": "Bigshare Services",
+    "allotmentUrl": "https://ipo.bigshareonline.com/IPO_Status.html"
   },
   {
     "id": "ajwa-projects-9",
@@ -133,7 +147,9 @@
     "dates": "28-Oct to 30-Oct",
     "ratingStars": "★★☆☆☆",
     "ratingScore": "2.0",
-    "sentiment": "Subdued"
+    "sentiment": "Subdued",
+    "registrarName": "Kfin Technologies",
+    "allotmentUrl": "https://ris.kfintech.com/ipostatus/"
   },
   {
     "id": "carver-roboweld-10",
@@ -150,7 +166,9 @@
     "dates": "28-Oct to 30-Oct",
     "ratingStars": "★★☆☆☆",
     "ratingScore": "2.0",
-    "sentiment": "Subdued"
+    "sentiment": "Subdued",
+    "registrarName": "Bigshare Services",
+    "allotmentUrl": "https://ipo.bigshareonline.com/IPO_Status.html"
   },
   {
     "id": "vedant-poly-fabs-1",
@@ -167,7 +185,9 @@
     "dates": "2-Nov to 4-Nov",
     "ratingStars": "☆☆☆☆☆",
     "ratingScore": "N/A",
-    "sentiment": "Awaiting GMP"
+    "sentiment": "Awaiting GMP",
+    "registrarName": "Cameo Corporate",
+    "allotmentUrl": "https://ipo.cameoindia.com/"
   },
   {
     "id": "wiscon-industries-11",
@@ -184,7 +204,9 @@
     "dates": "27-Oct to 29-Oct",
     "ratingStars": "☆☆☆☆☆",
     "ratingScore": "N/A",
-    "sentiment": "Awaiting GMP"
+    "sentiment": "Awaiting GMP",
+    "registrarName": "Maashitla",
+    "allotmentUrl": "https://maashitla.com/allotment-status"
   },
   {
     "id": "sfc-environmental-technologies-12",
@@ -201,7 +223,9 @@
     "dates": "27-Oct to 29-Oct",
     "ratingStars": "★★☆☆☆",
     "ratingScore": "2.0",
-    "sentiment": "Subdued"
+    "sentiment": "Subdued",
+    "registrarName": "Link Intime",
+    "allotmentUrl": "https://linkintime.co.in/initial_offer/public-issues.html"
   },
   {
     "id": "bls-polymers-13",
@@ -218,7 +242,9 @@
     "dates": "27-Oct to 29-Oct",
     "ratingStars": "★★★★☆",
     "ratingScore": "4.0",
-    "sentiment": "Healthy"
+    "sentiment": "Healthy",
+    "registrarName": "Kfin Technologies",
+    "allotmentUrl": "https://ris.kfintech.com/ipostatus/"
   },
   {
     "id": "eaaa-india-alternatives-14",
@@ -235,7 +261,9 @@
     "dates": "26-Oct to 28-Oct",
     "ratingStars": "★★☆☆☆",
     "ratingScore": "2.0",
-    "sentiment": "Subdued"
+    "sentiment": "Subdued",
+    "registrarName": "Link Intime",
+    "allotmentUrl": "https://linkintime.co.in/initial_offer/public-issues.html"
   },
   {
     "id": "core4-engineers-15",
@@ -252,7 +280,9 @@
     "dates": "23-Oct to 27-Oct",
     "ratingStars": "☆☆☆☆☆",
     "ratingScore": "N/A",
-    "sentiment": "Awaiting GMP"
+    "sentiment": "Awaiting GMP",
+    "registrarName": "Registrar details unavailable",
+    "allotmentUrl": "https://www.sebi.gov.in/"
   },
   {
     "id": "paras-healthcare-16",
@@ -269,7 +299,9 @@
     "dates": "21-Oct to 23-Oct",
     "ratingStars": "★★☆☆☆",
     "ratingScore": "2.0",
-    "sentiment": "Subdued"
+    "sentiment": "Subdued",
+    "registrarName": "Link Intime",
+    "allotmentUrl": "https://linkintime.co.in/initial_offer/public-issues.html"
   },
   {
     "id": "jio-platforms-17",
@@ -286,7 +318,9 @@
     "dates": "21-Oct to 23-Oct",
     "ratingStars": "★★★☆☆",
     "ratingScore": "3.0",
-    "sentiment": "Moderate"
+    "sentiment": "Moderate",
+    "registrarName": "Kfin Technologies",
+    "allotmentUrl": "https://ris.kfintech.com/ipostatus/"
   },
   {
     "id": "zetwerk-18",
@@ -303,7 +337,9 @@
     "dates": "15-Oct to 19-Oct",
     "ratingStars": "★★☆☆☆",
     "ratingScore": "2.0",
-    "sentiment": "Subdued"
+    "sentiment": "Subdued",
+    "registrarName": "Kfin Technologies",
+    "allotmentUrl": "https://ris.kfintech.com/ipostatus/"
   },
   {
     "id": "tonbo-imaging-india-19",
@@ -320,7 +356,9 @@
     "dates": "15-Oct to 19-Oct",
     "ratingStars": "★★★★★",
     "ratingScore": "5.0",
-    "sentiment": "Very Strong"
+    "sentiment": "Very Strong",
+    "registrarName": "Kfin Technologies",
+    "allotmentUrl": "https://ris.kfintech.com/ipostatus/"
   },
   {
     "id": "sahajanand-medical-technologies-20",
@@ -337,7 +375,9 @@
     "dates": "15-Oct to 19-Oct",
     "ratingStars": "★★☆☆☆",
     "ratingScore": "2.0",
-    "sentiment": "Subdued"
+    "sentiment": "Subdued",
+    "registrarName": "Link Intime",
+    "allotmentUrl": "https://linkintime.co.in/initial_offer/public-issues.html"
   },
   {
     "id": "bonfiglioli-transmissions-21",
@@ -354,7 +394,9 @@
     "dates": "15-Oct to 19-Oct",
     "ratingStars": "★★★☆☆",
     "ratingScore": "3.0",
-    "sentiment": "Moderate"
+    "sentiment": "Moderate",
+    "registrarName": "Link Intime",
+    "allotmentUrl": "https://linkintime.co.in/initial_offer/public-issues.html"
   },
   {
     "id": "shellz-india-22",
@@ -371,7 +413,9 @@
     "dates": "15-Oct to 19-Oct",
     "ratingStars": "★★☆☆☆",
     "ratingScore": "2.0",
-    "sentiment": "Subdued"
+    "sentiment": "Subdued",
+    "registrarName": "Bigshare Services",
+    "allotmentUrl": "https://ipo.bigshareonline.com/IPO_Status.html"
   },
   {
     "id": "ravita-engineering-services-23",
@@ -388,7 +432,9 @@
     "dates": "14-Oct to 16-Oct",
     "ratingStars": "★★☆☆☆",
     "ratingScore": "2.0",
-    "sentiment": "Subdued"
+    "sentiment": "Subdued",
+    "registrarName": "Link Intime",
+    "allotmentUrl": "https://linkintime.co.in/initial_offer/public-issues.html"
   },
   {
     "id": "fusion-cx-24",
@@ -405,7 +451,9 @@
     "dates": "14-Oct to 16-Oct",
     "ratingStars": "★★☆☆☆",
     "ratingScore": "2.0",
-    "sentiment": "Subdued"
+    "sentiment": "Subdued",
+    "registrarName": "Kfin Technologies",
+    "allotmentUrl": "https://ris.kfintech.com/ipostatus/"
   },
   {
     "id": "hd-fire-protect-25",
@@ -422,7 +470,9 @@
     "dates": "13-Oct to 15-Oct",
     "ratingStars": "★★★★☆",
     "ratingScore": "4.0",
-    "sentiment": "Healthy"
+    "sentiment": "Healthy",
+    "registrarName": "Link Intime",
+    "allotmentUrl": "https://linkintime.co.in/initial_offer/public-issues.html"
   },
   {
     "id": "vaibhav-vyapaar-26",
@@ -439,7 +489,9 @@
     "dates": "13-Oct to 15-Oct",
     "ratingStars": "★★☆☆☆",
     "ratingScore": "2.0",
-    "sentiment": "Subdued"
+    "sentiment": "Subdued",
+    "registrarName": "Kfin Technologies",
+    "allotmentUrl": "https://ris.kfintech.com/ipostatus/"
   },
   {
     "id": "r-k-fashion-accessories-27",
@@ -456,7 +508,9 @@
     "dates": "5-Oct to 7-Oct",
     "ratingStars": "★★☆☆☆",
     "ratingScore": "2.0",
-    "sentiment": "Subdued"
+    "sentiment": "Subdued",
+    "registrarName": "Cameo Corporate",
+    "allotmentUrl": "https://ipo.cameoindia.com/"
   },
   {
     "id": "paramount-syntex-28",
@@ -473,7 +527,9 @@
     "dates": "30-Sep to 6-Oct",
     "ratingStars": "☆☆☆☆☆",
     "ratingScore": "N/A",
-    "sentiment": "Awaiting GMP"
+    "sentiment": "Awaiting GMP",
+    "registrarName": "Bigshare Services",
+    "allotmentUrl": "https://ipo.bigshareonline.com/IPO_Status.html"
   },
   {
     "id": "acme-india-industries-29",
@@ -490,7 +546,9 @@
     "dates": "30-Sep to 6-Oct",
     "ratingStars": "★★★☆☆",
     "ratingScore": "3.0",
-    "sentiment": "Moderate"
+    "sentiment": "Moderate",
+    "registrarName": "Bigshare Services",
+    "allotmentUrl": "https://ipo.bigshareonline.com/IPO_Status.html"
   },
   {
     "id": "tna-solutions-30",
@@ -507,6 +565,8 @@
     "dates": "30-Sep to 6-Oct",
     "ratingStars": "☆☆☆☆☆",
     "ratingScore": "N/A",
-    "sentiment": "Awaiting GMP"
+    "sentiment": "Awaiting GMP",
+    "registrarName": "Maashitla",
+    "allotmentUrl": "https://maashitla.com/allotment-status"
   }
 ]
