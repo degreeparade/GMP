@@ -1,437 +1,222 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>IPO GMP Pulse | Live Grey Market Rates & Sentiment</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Live Indian IPO GMP tracker with grey market premium estimates.">
+  <title>IPO Pulse | Live GMP Tracker</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg-base: #080b11;
+      --obsidian: #080b11;
       --surface: #0e1422;
-      --surface-hover: #141d33;
-      --surface-border: #1a253c;
-      --text-main: #f3f4f6;
-      --text-sub: #94a3b8;
-      --accent: #38bdf8;
-      --accent-glow: rgba(56, 189, 248, 0.15);
+      --surface-raised: #131c2d;
+      --border: rgba(148, 163, 184, .14);
+      --border-bright: rgba(56, 189, 248, .38);
+      --text: #f2f7fc;
+      --muted: #91a0b7;
+      --cyan: #38bdf8;
       --green: #10b981;
-      --green-glow: rgba(16, 185, 129, 0.12);
-      --red: #f43f5e;
-      --red-glow: rgba(244, 63, 94, 0.12);
       --amber: #f59e0b;
-      --amber-glow: rgba(245, 158, 11, 0.12);
-      --font-mono: 'JetBrains Mono', monospace;
+      --red: #f43f5e;
+      --mono: "JetBrains Mono", monospace;
+      --sans: "Plus Jakarta Sans", sans-serif;
     }
 
-    * { margin: 0; padding: 0; box-sizing: border-box; }
+    * { box-sizing: border-box; }
+    html { background: var(--obsidian); }
     body {
-      background-color: var(--bg-base);
-      color: var(--text-main);
-      font-family: 'Plus Jakarta Sans', sans-serif;
-      padding: 0 16px 40px 16px;
-      -webkit-font-smoothing: antialiased;
-      background-image: 
-        radial-gradient(ellipse at 50% -20%, rgba(56, 189, 248, 0.08), transparent 70%),
-        radial-gradient(ellipse at 80% 40%, rgba(16, 185, 129, 0.04), transparent 50%);
-      background-attachment: fixed;
+      margin: 0;
+      min-height: 100vh;
+      color: var(--text);
+      font: 14px/1.6 var(--sans);
+      background:
+        radial-gradient(circle at 8% -10%, rgba(56, 189, 248, .14), transparent 34rem),
+        radial-gradient(circle at 95% 16%, rgba(16, 185, 129, .08), transparent 28rem),
+        var(--obsidian);
     }
-
-    .container { max-width: 980px; margin: 0 auto; }
-
-    /* Header & Branding */
-    header { text-align: center; padding: 36px 0 20px 0; }
+    a { color: inherit; }
+    .shell { width: min(1120px, calc(100% - 32px)); margin: 0 auto; }
+    header { padding: 48px 0 30px; }
     .brand-pill {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      padding: 4px 12px;
-      border-radius: 999px;
-      background: rgba(56, 189, 248, 0.08);
-      border: 1px solid rgba(56, 189, 248, 0.25);
-      color: var(--accent);
-      font-size: 0.75rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      margin-bottom: 12px;
+      display: inline-flex; align-items: center; gap: 9px; padding: 7px 12px;
+      color: var(--cyan); border: 1px solid rgba(56, 189, 248, .24);
+      border-radius: 999px; background: rgba(56, 189, 248, .07);
+      font-size: .72rem; font-weight: 800; letter-spacing: .12em; text-transform: uppercase;
     }
-    .pulse-dot {
-      width: 6px;
-      height: 6px;
-      background: var(--accent);
-      border-radius: 50%;
-      box-shadow: 0 0 8px var(--accent);
-      animation: pulse 2s infinite;
+    .pulse {
+      width: 7px; height: 7px; border-radius: 50%; background: var(--green);
+      box-shadow: 0 0 0 0 rgba(16, 185, 129, .65); animation: pulse 2s infinite;
     }
-    @keyframes pulse {
-      0% { transform: scale(0.95); opacity: 0.6; }
-      50% { transform: scale(1.4); opacity: 1; }
-      100% { transform: scale(0.95); opacity: 0.6; }
+    @keyframes pulse { 70% { box-shadow: 0 0 0 8px rgba(16, 185, 129, 0); } 100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); } }
+    h1 { margin: 18px 0 7px; font-size: clamp(2.35rem, 6vw, 4.5rem); letter-spacing: -.075em; line-height: 1; }
+    .subtitle { max-width: 640px; margin: 0; color: var(--muted); font-size: 1rem; }
+    .eyebrow { color: var(--cyan); font-size: .7rem; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; }
+    .glass {
+      border: 1px solid var(--border); border-radius: 16px;
+      background: linear-gradient(135deg, rgba(19, 28, 45, .88), rgba(14, 20, 34, .72));
+      box-shadow: 0 18px 55px rgba(0, 0, 0, .2);
+      backdrop-filter: blur(16px);
     }
-    h1 {
-      font-size: 2.2rem;
-      font-weight: 800;
-      letter-spacing: -0.03em;
-      background: linear-gradient(180deg, #ffffff 30%, #94a3b8 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      margin-bottom: 6px;
+    .launchpad { padding: 18px; margin-bottom: 22px; }
+    .launchpad-heading { display: flex; justify-content: space-between; gap: 16px; align-items: end; margin-bottom: 14px; }
+    .launchpad-heading h2 { margin: 0 0 3px; font-size: 1.05rem; }
+    .launchpad-heading p { margin: 0; color: var(--muted); font-size: .78rem; }
+    .partner-note { color: var(--muted); font-size: .68rem; }
+    .broker-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+    .broker {
+      position: relative; display: block; min-height: 84px; padding: 14px 34px 13px 15px;
+      overflow: hidden; border: 1px solid var(--border); border-radius: 11px;
+      background: rgba(255,255,255,.025); text-decoration: none;
+      transition: transform .22s ease, border-color .22s ease, background .22s ease;
     }
-    header p { color: var(--text-sub); font-size: 0.95rem; }
-
-    /* Top Broker Launchpad Bar */
-    .broker-hub {
-      background: linear-gradient(135deg, rgba(20, 29, 51, 0.7), rgba(14, 20, 34, 0.7));
-      border: 1px solid var(--surface-border);
-      border-radius: 16px;
-      padding: 18px 20px;
-      margin: 24px 0;
-      backdrop-filter: blur(12px);
-      box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+    .broker::after { content: "↗"; position: absolute; top: 14px; right: 14px; color: var(--cyan); transition: transform .22s; }
+    .broker:hover { transform: translateY(-4px); border-color: var(--border-bright); background: rgba(56, 189, 248, .08); }
+    .broker:hover::after { transform: translate(3px, -3px); }
+    .broker-name { display: block; font-size: .96rem; font-weight: 800; }
+    .broker-perk { display: block; margin-top: 5px; color: var(--muted); font-size: .7rem; line-height: 1.35; }
+    .legend {
+      display: flex; justify-content: center; flex-wrap: wrap; gap: 20px; margin: 0 0 22px;
+      color: var(--muted); font-size: .76rem;
     }
-    .broker-hub-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 12px;
-      font-size: 0.85rem;
-      color: var(--text-sub);
+    .legend-item { display: inline-flex; align-items: center; gap: 7px; }
+    .dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; }
+    .dot-green { background: var(--green); box-shadow: 0 0 12px rgba(16, 185, 129, .9); }
+    .dot-yellow { background: var(--amber); box-shadow: 0 0 12px rgba(245, 158, 11, .75); }
+    .dot-red { background: var(--red); box-shadow: 0 0 12px rgba(244, 63, 94, .75); }
+    .controls { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 16px; }
+    .tabs { display: flex; gap: 5px; padding: 4px; border: 1px solid var(--border); border-radius: 999px; background: rgba(14, 20, 34, .82); }
+    .tab-btn {
+      padding: 8px 14px; border: 0; border-radius: 999px; color: var(--muted);
+      background: transparent; cursor: pointer; font: 600 .78rem var(--sans); transition: .2s;
     }
-    .broker-hub-header strong { color: #fff; font-weight: 700; }
-    .broker-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 10px;
-    }
-    .broker-btn {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 10px 14px;
-      border-radius: 10px;
-      background: rgba(255, 255, 255, 0.03);
-      border: 1px solid rgba(255, 255, 255, 0.07);
-      text-decoration: none;
-      color: #fff;
-      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-    .broker-btn:hover {
-      background: rgba(56, 189, 248, 0.1);
-      border-color: rgba(56, 189, 248, 0.4);
-      transform: translateY(-2px);
-    }
-    .broker-info { display: flex; flex-direction: column; }
-    .broker-name { font-weight: 700; font-size: 0.9rem; }
-    .broker-perk { font-size: 0.72rem; color: var(--text-sub); }
-    .broker-arrow { color: var(--accent); font-size: 1rem; font-weight: bold; }
-
-    /* Legend Pills */
-    .legend-row {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 16px;
-      margin-bottom: 20px;
-      font-size: 0.8rem;
-      color: var(--text-sub);
-    }
-    .legend-tag { display: flex; align-items: center; gap: 6px; }
-    .status-pip { width: 8px; height: 8px; border-radius: 50%; }
-    .pip-green { background: var(--green); box-shadow: 0 0 10px var(--green); }
-    .pip-amber { background: var(--amber); box-shadow: 0 0 8px var(--amber); }
-    .pip-red { background: var(--red); }
-
-    /* Interactive Controls */
-    .filter-bar {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-      margin-bottom: 20px;
-    }
-    @media (min-width: 640px) {
-      .filter-bar { flex-direction: row; justify-content: space-between; align-items: center; }
-    }
-    .tabs-wrapper {
-      display: inline-flex;
-      background: var(--surface);
-      border: 1px solid var(--surface-border);
-      padding: 4px;
-      border-radius: 12px;
-    }
-    .tab-trigger {
-      background: transparent;
-      border: none;
-      color: var(--text-sub);
-      padding: 8px 18px;
-      font-size: 0.88rem;
-      font-weight: 600;
-      border-radius: 8px;
-      cursor: pointer;
-      transition: all 0.2s;
-    }
-    .tab-trigger.active {
-      background: var(--surface-hover);
-      color: #fff;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-    }
-    .search-input-wrap {
-      position: relative;
-      flex: 1;
-      max-width: 340px;
-    }
-    .search-input-wrap input {
-      width: 100%;
-      background: var(--surface);
-      border: 1px solid var(--surface-border);
-      border-radius: 10px;
-      padding: 10px 14px;
-      color: #fff;
-      font-size: 0.88rem;
-      outline: none;
-      transition: border-color 0.2s, box-shadow 0.2s;
-    }
-    .search-input-wrap input:focus {
-      border-color: var(--accent);
-      box-shadow: 0 0 0 3px var(--accent-glow);
-    }
-
-    /* Clean Card Items */
-    .ipo-feed { display: flex; flex-direction: column; gap: 10px; }
+    .tab-btn.active { color: #03131b; background: var(--cyan); box-shadow: 0 0 18px rgba(56, 189, 248, .2); }
+    .search { width: min(300px, 100%); padding: 10px 14px; color: var(--text); border: 1px solid var(--border); border-radius: 999px; outline: 0; background: var(--surface); font: .78rem var(--sans); }
+    .search:focus { border-color: var(--border-bright); box-shadow: 0 0 0 3px rgba(56, 189, 248, .08); }
+    .meta { margin: 0 0 10px; color: var(--muted); font-size: .75rem; }
+    .list { display: grid; gap: 10px; }
     .ipo-card {
-      background: var(--surface);
-      border: 1px solid var(--surface-border);
-      border-radius: 14px;
-      padding: 16px 20px;
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 14px;
-      transition: all 0.2s ease;
+      display: grid; grid-template-columns: minmax(240px, 1.7fr) repeat(3, minmax(120px, 1fr));
+      gap: 20px; align-items: center; padding: 18px 20px; border: 1px solid var(--border);
+      border-radius: 14px; background: rgba(14, 20, 34, .86);
+      transition: transform .22s ease, border-color .22s ease, box-shadow .22s ease;
     }
-    .ipo-card:hover {
-      background: var(--surface-hover);
-      border-color: rgba(56, 189, 248, 0.3);
-      transform: translateY(-1px);
+    .ipo-card:hover { transform: translateY(-3px); border-color: rgba(56, 189, 248, .32); box-shadow: 0 16px 35px rgba(0,0,0,.24); }
+    .identity { display: flex; align-items: flex-start; gap: 11px; min-width: 0; }
+    .identity .dot { flex: 0 0 auto; margin-top: 7px; }
+    .identity h2 { overflow: hidden; margin: 0 0 6px; font-size: .98rem; text-overflow: ellipsis; white-space: nowrap; }
+    .status { display: inline-block; padding: 2px 7px; border: 1px solid currentColor; border-radius: 999px; font-size: .64rem; font-weight: 700; }
+    .status.open { color: var(--green); } .status.upcoming { color: var(--amber); } .status.closed { color: var(--red); }
+    .rating { margin-top: 7px; color: var(--amber); font-size: .78rem; }
+    .rating span { margin-left: 5px; color: var(--muted); font-size: .69rem; }
+    .data-label { display: block; margin-bottom: 3px; color: var(--muted); font-size: .66rem; text-transform: uppercase; letter-spacing: .08em; }
+    .data-value { color: var(--text); font: 600 .88rem var(--mono); white-space: nowrap; }
+    .gmp-positive { color: var(--green); } .gmp-negative { color: var(--red); }
+    footer { margin: 42px 0 30px; padding-top: 20px; border-top: 1px solid var(--border); color: var(--muted); font-size: .72rem; line-height: 1.7; }
+    @media (max-width: 800px) {
+      .broker-grid { grid-template-columns: repeat(2, 1fr); }
+      .ipo-card { grid-template-columns: 1.6fr 1fr 1fr; gap: 14px; }
+      .ipo-card .listing { grid-column: 3; }
     }
-    @media (min-width: 768px) {
-      .ipo-card {
-        grid-template-columns: 1.8fr 1fr 1fr 1fr;
-        align-items: center;
-        gap: 16px;
-      }
-    }
-
-    /* Left: Name & Status */
-    .card-meta { display: flex; flex-direction: column; gap: 6px; }
-    .name-line { display: flex; align-items: center; gap: 8px; }
-    .name-line h2 {
-      font-size: 1.05rem;
-      font-weight: 700;
-      color: #fff;
-      letter-spacing: -0.01em;
-    }
-    .badge-status {
-      display: inline-flex;
-      align-items: center;
-      gap: 5px;
-      font-size: 0.72rem;
-      font-weight: 700;
-      padding: 2px 8px;
-      border-radius: 6px;
-      text-transform: uppercase;
-      letter-spacing: 0.04em;
-    }
-    .badge-status.open { background: var(--green-glow); color: var(--green); border: 1px solid rgba(16, 185, 129, 0.3); }
-    .badge-status.upcoming { background: var(--amber-glow); color: var(--amber); border: 1px solid rgba(245, 158, 11, 0.3); }
-    .badge-status.closed { background: var(--red-glow); color: var(--red); border: 1px solid rgba(244, 63, 94, 0.3); }
-
-    .rating-line { display: flex; align-items: center; gap: 6px; font-size: 0.8rem; }
-    .star-display { color: #f59e0b; font-size: 0.85rem; }
-    .sentiment-tag { color: var(--text-sub); font-size: 0.75rem; }
-
-    /* Middle Data Columns */
-    .stat-block { display: flex; flex-direction: column; }
-    .stat-label { font-size: 0.7rem; color: var(--text-sub); text-transform: uppercase; font-weight: 600; letter-spacing: 0.05em; margin-bottom: 2px; }
-    .stat-val { font-family: var(--font-mono); font-size: 0.98rem; font-weight: 700; }
-    .val-gmp-up { color: var(--green); text-shadow: 0 0 10px rgba(16, 185, 129, 0.3); }
-    .val-gmp-down { color: var(--red); }
-    .date-val { font-size: 0.82rem; color: var(--text-main); font-weight: 500; }
-
-    /* Footer */
-    footer {
-      margin-top: 48px;
-      padding-top: 24px;
-      border-top: 1px solid var(--surface-border);
-      text-align: center;
-      font-size: 0.76rem;
-      color: var(--text-sub);
-      line-height: 1.6;
+    @media (max-width: 580px) {
+      .shell { width: min(100% - 22px, 1120px); } header { padding-top: 30px; }
+      .launchpad-heading { display: block; } .partner-note { display: block; margin-top: 8px; }
+      .broker-grid { grid-template-columns: 1fr 1fr; }
+      .controls { display: grid; } .tabs { justify-content: center; } .search { width: 100%; }
+      .ipo-card { grid-template-columns: 1fr 1fr; padding: 16px; }
+      .identity { grid-column: 1 / -1; } .ipo-card .listing { grid-column: auto; }
     }
   </style>
 </head>
 <body>
+  <main class="shell">
+    <header>
+      <div class="brand-pill"><span class="pulse"></span> Live market intelligence</div>
+      <h1>IPO Pulse</h1>
+      <p class="subtitle">Track Indian IPOs, grey market premiums, and indicative listing prices in one clear view.</p>
+    </header>
 
-<div class="container">
-  <header>
-    <div class="brand-pill">
-      <span class="pulse-dot"></span>
-      Live Market Intelligence
+    <section class="launchpad glass" aria-label="Broker launchpad">
+      <div class="launchpad-heading">
+        <div><h2>Open a Demat Account to Apply for IPOs</h2><p>Get started with a trusted online broker.</p></div>
+        <span class="partner-note">Partner links · Terms apply</span>
+      </div>
+      <div class="broker-grid">
+        <a class="broker" href="https://upstox.com/open-account/" target="_blank" rel="noopener sponsored"><span class="broker-name">Upstox</span><span class="broker-perk">Fast online demat</span></a>
+        <a class="broker" href="https://angelone.in/open-account" target="_blank" rel="noopener sponsored"><span class="broker-name">Angel One</span><span class="broker-perk">Free account + zero brokerage</span></a>
+        <a class="broker" href="https://zerodha.com/open-account/" target="_blank" rel="noopener sponsored"><span class="broker-name">Zerodha</span><span class="broker-perk">Top discount broker</span></a>
+        <a class="broker" href="https://dhan.co/open-account/" target="_blank" rel="noopener sponsored"><span class="broker-name">Dhan</span><span class="broker-perk">Zero AMC</span></a>
+      </div>
+    </section>
+
+    <div class="legend" aria-label="Status legend">
+      <span class="legend-item"><i class="dot dot-green"></i> Open Now</span>
+      <span class="legend-item"><i class="dot dot-yellow"></i> Upcoming</span>
+      <span class="legend-item"><i class="dot dot-red"></i> Closed / Listed</span>
     </div>
-    <h1>Indian IPO GMP Tracker</h1>
-    <p>Live Grey Market Premiums, estimated gains, and sentiment scoring</p>
-  </header>
 
-  <!-- Broker Launchpad Bar -->
-  <section class="broker-hub">
-    <div class="broker-hub-header">
-      <strong>🚀 Open Free Demat Account to Apply</strong>
-      <span>Approved official partners</span>
-    </div>
-    <div class="broker-grid">
-      <a href="https://your-upstox-link.com" target="_blank" rel="noopener" class="broker-btn">
-        <div class="broker-info">
-          <span class="broker-name">Upstox</span>
-          <span class="broker-perk">Instant ₹0 Paperless KYC</span>
-        </div>
-        <span class="broker-arrow">&rarr;</span>
-      </a>
-      <a href="https://your-angelone-link.com" target="_blank" rel="noopener" class="broker-btn">
-        <div class="broker-info">
-          <span class="broker-name">Angel One</span>
-          <span class="broker-perk">Zero Brokerage on Delivery</span>
-        </div>
-        <span class="broker-arrow">&rarr;</span>
-      </a>
-      <a href="https://your-zerodha-link.com" target="_blank" rel="noopener" class="broker-btn">
-        <div class="broker-info">
-          <span class="broker-name">Zerodha</span>
-          <span class="broker-perk">India's Largest Broker</span>
-        </div>
-        <span class="broker-arrow">&rarr;</span>
-      </a>
-      <a href="https://your-dhan-link.com" target="_blank" rel="noopener" class="broker-btn">
-        <div class="broker-info">
-          <span class="broker-name">Dhan</span>
-          <span class="broker-perk">Fast Direct UPI Applications</span>
-        </div>
-        <span class="broker-arrow">&rarr;</span>
-      </a>
-    </div>
-  </section>
+    <section class="controls" aria-label="IPO filters">
+      <div class="tabs">
+        <button class="tab-btn active" onclick="switchCategory('mainboard', this)">Mainboard IPOs</button>
+        <button class="tab-btn" onclick="switchCategory('sme', this)">SME IPOs</button>
+      </div>
+      <input class="search" id="searchInput" type="search" placeholder="Search company name..." aria-label="Search company name" oninput="render()">
+    </section>
+    <p class="meta" id="meta" aria-live="polite">Loading live IPO data...</p>
+    <section class="list" id="ipoList" aria-live="polite"></section>
 
-  <!-- Legend -->
-  <div class="legend-row">
-    <div class="legend-tag"><span class="status-pip pip-green"></span> Open Now</div>
-    <div class="legend-tag"><span class="status-pip pip-amber"></span> Upcoming</div>
-    <div class="legend-tag"><span class="status-pip pip-red"></span> Closed / Listed</div>
-  </div>
+    <footer><strong>Regulatory Disclaimer:</strong> Grey Market Premium (GMP), sentiment scores, and estimated listing prices are unofficial market perceptions and not investment advice. GMP can change without notice and should not be the sole basis for an investment decision. We are not a SEBI-registered advisory entity. Review official offer documents and consult a qualified financial adviser before investing.</footer>
+  </main>
+  <script>
+    let allIpos = [];
+    let currentCategory = "mainboard";
+    const escapeHtml = (value) => String(value ?? "").replace(/[&<>"']/g, (char) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#039;" })[char]);
 
-  <!-- Filter & Tab Navigation -->
-  <div class="filter-bar">
-    <div class="tabs-wrapper">
-      <button class="tab-trigger active" onclick="setCategory('mainboard', this)">Mainboard IPOs</button>
-      <button class="tab-trigger" onclick="setCategory('sme', this)">SME IPOs</button>
-    </div>
-    <div class="search-input-wrap">
-      <input type="text" id="ipoSearch" placeholder="Search company name..." oninput="handleFilter()" autocomplete="off">
-    </div>
-  </div>
-
-  <!-- The Feed List -->
-  <div class="ipo-feed" id="feedContainer">
-    <p style="color: var(--text-sub); text-align: center; padding: 40px 0;">Loading market feeds...</p>
-  </div>
-
-  <footer>
-    <p><strong>Disclaimer:</strong> Grey Market Premium (GMP) numbers and star ratings are informal, non-official market indications sourced from market participants. We do not provide investment advice or stock recommendations. We are not a SEBI-registered advisor. Please consult an independent certified financial planner and inspect the official Red Herring Prospectus (RHP) prior to bidding.</p>
-  </footer>
-</div>
-
-<script>
-  let dataset = [];
-  let currentTab = 'mainboard';
-
-  async function loadData() {
-    try {
-      const res = await fetch(`data.json?t=${Date.now()}`, { cache: 'no-store' });
-      dataset = await res.json();
-      renderFeed();
-    } catch (e) {
-      document.getElementById('feedContainer').innerHTML = 
-        '<p style="color:var(--red); text-align:center; padding: 30px;">Error loading live records. Run node update.js to regenerate data.json.</p>';
-    }
-  }
-
-  function setCategory(cat, btn) {
-    currentTab = cat;
-    document.querySelectorAll('.tab-trigger').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-    renderFeed();
-  }
-
-  function handleFilter() {
-    renderFeed();
-  }
-
-  function renderFeed() {
-    const query = document.getElementById('ipoSearch').value.toLowerCase().trim();
-    const container = document.getElementById('feedContainer');
-
-    const matched = dataset.filter(ipo => {
-      const isRightCat = ipo.category === currentTab;
-      const isRightQuery = ipo.name.toLowerCase().includes(query);
-      return isRightCat && isRightQuery;
-    });
-
-    if (matched.length === 0) {
-      container.innerHTML = '<p style="color:var(--text-sub); text-align:center; padding: 40px 0;">No active listings found matching this criteria.</p>';
-      return;
+    async function init() {
+      try {
+        const response = await fetch("data.json?t=" + Date.now(), { cache: "no-store" });
+        if (!response.ok) throw new Error("Data unavailable");
+        const data = await response.json();
+        if (!Array.isArray(data)) throw new Error("Invalid IPO data");
+        allIpos = data;
+        render();
+      } catch (error) {
+        document.getElementById("meta").textContent = `Unable to load IPO data: ${error.message}`;
+      }
     }
 
-    container.innerHTML = matched.map(ipo => {
-      const isUp = (ipo.gmpVal || 0) >= 0;
-      const gmpClass = isUp ? 'val-gmp-up' : 'val-gmp-down';
-      const status = ipo.status || 'closed';
-      const statusLabel = ipo.statusLabel || (status === 'open' ? 'Open Now' : status === 'upcoming' ? 'Upcoming' : 'Closed');
-      const pipClass = status === 'open' ? 'pip-green' : status === 'upcoming' ? 'pip-amber' : 'pip-red';
+    function switchCategory(category, button) {
+      currentCategory = category;
+      document.querySelectorAll(".tab-btn").forEach((item) => item.classList.toggle("active", item === button));
+      render();
+    }
 
-      return `
-        <article class="ipo-card">
-          <div class="card-meta">
-            <div class="name-line">
-              <span class="status-pip ${pipClass}"></span>
-              <h2>${ipo.name}</h2>
-              <span class="badge-status ${status}">${statusLabel}</span>
-            </div>
-            <div class="rating-line">
-              <span class="star-display">${ipo.ratingStars || '☆☆☆☆☆'}</span>
-              <span class="sentiment-tag">${ipo.ratingScore || 'N/A'}/5 • ${ipo.sentiment || 'Awaiting Data'}</span>
-            </div>
-          </div>
+    function render() {
+      const query = document.getElementById("searchInput").value.trim().toLowerCase();
+      const container = document.getElementById("ipoList");
+      const filtered = allIpos.filter((ipo) => ipo.category === currentCategory && String(ipo.name || "").toLowerCase().includes(query));
+      document.getElementById("meta").textContent = `${filtered.length} ${currentCategory === "sme" ? "SME" : "mainboard"} IPO${filtered.length === 1 ? "" : "s"} · refreshed ${new Date().toLocaleTimeString()}`;
+      if (!filtered.length) {
+        container.innerHTML = '<div class="glass" style="padding:28px;text-align:center;color:var(--muted)">No IPOs found for this filter.</div>';
+        return;
+      }
+      container.innerHTML = filtered.map((ipo) => {
+        const status = ipo.status || "upcoming";
+        const statusColor = status === "closed" ? "red" : (ipo.statusColor || (status === "open" ? "green" : "yellow"));
+        const gmpValue = Number(ipo.gmpVal);
+        const gmpClass = Number.isFinite(gmpValue) && gmpValue < 0 ? "gmp-negative" : "gmp-positive";
+        return `<article class="ipo-card">
+          <div class="identity"><i class="dot dot-${statusColor}"></i><div><h2>${escapeHtml(ipo.name || "Unnamed IPO")}</h2><span class="status ${escapeHtml(status)}">${escapeHtml(ipo.statusLabel || "Upcoming")} · ${escapeHtml(ipo.dates || "TBA")}</span><div class="rating">${escapeHtml(ipo.ratingStars || "☆☆☆☆☆")}<span>${escapeHtml(ipo.sentiment || "Awaiting GMP")}</span></div></div></div>
+          <div><span class="data-label">Issue price</span><span class="data-value">${escapeHtml(ipo.priceBand || "—")}</span></div>
+          <div><span class="data-label">Live GMP</span><span class="data-value ${gmpClass}">${escapeHtml(ipo.gmp || "Awaiting GMP")}</span></div>
+          <div class="listing"><span class="data-label">Est. listing</span><span class="data-value">${escapeHtml(ipo.estListing || ipo.priceBand || "—")}</span></div>
+        </article>`;
+      }).join("");
+    }
 
-          <div class="stat-block">
-            <span class="stat-label">Issue Price</span>
-            <span class="stat-val">${ipo.priceBand || 'TBA'}</span>
-          </div>
-
-          <div class="stat-block">
-            <span class="stat-label">Live GMP</span>
-            <span class="stat-val ${gmpClass}">${ipo.gmp || '₹0'}</span>
-          </div>
-
-          <div class="stat-block">
-            <span class="stat-label">Est. Listing (${ipo.dates || 'TBA'})</span>
-            <span class="stat-val">${ipo.estListing || ipo.priceBand || '—'}</span>
-          </div>
-        </article>
-      `;
-    }).join('');
-  }
-
-  loadData();
-</script>
+    init();
+  </script>
 </body>
 </html>
