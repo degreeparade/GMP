@@ -148,8 +148,7 @@ function parseRows(html) {
       dates,
       ratingStars: rating.stars,
       ratingScore: rating.score,
-      sentiment: rating.sentiment,
-      applyUrl: status.value === 'closed' ? null : 'https://your-broker-affiliate-link.com'
+      sentiment: rating.sentiment
     });
   });
 

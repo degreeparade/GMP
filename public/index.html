@@ -36,6 +36,30 @@
       font-size: 0.85rem;
       margin-bottom: 24px;
     }
+    .broker-bar {
+      background: linear-gradient(135deg, #16253d, #111827);
+      border: 1px solid #2d4363;
+      border-radius: 12px;
+      padding: 16px;
+      margin-bottom: 24px;
+    }
+    .broker-heading { margin-bottom: 12px; }
+    .broker-heading strong { display: block; font-size: 1.05rem; }
+    .broker-heading span { color: var(--muted); font-size: .82rem; }
+    .broker-actions { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+    .broker-link {
+      display: flex; flex-direction: column; gap: 3px; position: relative;
+      padding: 12px 30px 12px 13px; border: 1px solid #385174; border-radius: 8px;
+      color: var(--text); text-decoration: none; background: rgba(255,255,255,.04);
+      transition: transform .2s, border-color .2s, background .2s;
+    }
+    .broker-link::after { content: '→'; position: absolute; right: 12px; top: 50%; transform: translateY(-50%); color: var(--green); transition: transform .2s; }
+    .broker-link:hover { transform: translateY(-2px); border-color: var(--green); background: rgba(16,185,129,.1); }
+    .broker-link:hover::after { transform: translate(3px, -50%); }
+    .broker-name { font-weight: 700; }
+    .broker-tag { color: var(--muted); font-size: .72rem; }
+    @media (max-width: 760px) { .broker-actions { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 420px) { .broker-actions { grid-template-columns: 1fr; } }
 
     /* Status Indicator Bar */
     .legend-bar {
@@ -151,27 +175,6 @@
     .gmp-green { color: var(--green); }
     .gmp-red { color: var(--red); }
 
-    .ipo-actions { display: flex; align-items: center; }
-    .btn-apply {
-      background: rgba(59, 130, 246, 0.15);
-      border: 1px solid rgba(59, 130, 246, 0.4);
-      color: #60a5fa;
-      padding: 8px 16px;
-      border-radius: 6px;
-      font-size: 0.85rem;
-      font-weight: 600;
-      text-decoration: none;
-      transition: all 0.2s;
-      white-space: nowrap;
-    }
-    .btn-apply:hover { background: var(--blue); color: #fff; }
-    .btn-apply.disabled {
-      background: rgba(255,255,255,0.04);
-      border-color: rgba(255,255,255,0.1);
-      color: var(--muted);
-      cursor: default;
-    }
-
     footer {
       margin-top: 40px;
       padding-top: 20px;
@@ -195,6 +198,19 @@
   <div class="ad-slot">
     [Advertisement Placement - Responsive Banner]
   </div>
+
+  <section class="broker-bar" aria-label="Broker accounts">
+    <div class="broker-heading">
+      <strong>Open Free Demat Account to Apply for IPOs</strong>
+      <span>Choose a trusted broker to get started.</span>
+    </div>
+    <div class="broker-actions">
+      <a class="broker-link" href="https://zerodha.com/open-account/" target="_blank" rel="noopener sponsored"><span class="broker-name">Zerodha</span><span class="broker-tag">Top Discount Broker</span></a>
+      <a class="broker-link" href="https://angelone.in/open-account" target="_blank" rel="noopener sponsored"><span class="broker-name">Angel One</span><span class="broker-tag">Free Account + Zero Brokerage</span></a>
+      <a class="broker-link" href="https://upstox.com/open-account/" target="_blank" rel="noopener sponsored"><span class="broker-name">Upstox</span><span class="broker-tag">Fast Online Demat</span></a>
+      <a class="broker-link" href="https://groww.in/open-account" target="_blank" rel="noopener sponsored"><span class="broker-name">Groww / Dhan</span><span class="broker-tag">Zero AMC</span></a>
+    </div>
+  </section>
 
   <!-- Legend Bar Explaining Dots -->
   <div class="legend-bar">
@@ -276,9 +292,7 @@
       const priceBand = ipo.priceBand || '₹0';
       const gmp = ipo.gmp || 'Awaiting GMP';
       const estListing = ipo.estListing || priceBand;
-      const applyUrl = ipo.applyUrl || '#';
       const gmpClass = Number(ipo.gmpVal) < 0 ? 'gmp-red' : 'gmp-green';
-      const isClosed = status === 'closed';
 
       return `
         <div class="ipo-row">
@@ -310,12 +324,6 @@
             </div>
           </div>
 
-          <div class="ipo-actions">
-            ${isClosed 
-              ? `<span class="btn-apply disabled">Closed</span>`
-              : `<a href="${applyUrl}" target="_blank" rel="noopener noreferrer" class="btn-apply">Apply &rarr;</a>`
-            }
-          </div>
         </div>
       `;
     }).join('');

@@ -14,8 +14,7 @@
     "dates": "30-Oct to 3-Nov",
     "ratingStars": "★★★☆☆",
     "ratingScore": "3.0",
-    "sentiment": "Moderate",
-    "applyUrl": "https://your-broker-affiliate-link.com"
+    "sentiment": "Moderate"
   },
   {
     "id": "johnsoncab-electricals-3",
@@ -32,8 +31,7 @@
     "dates": "30-Oct to 3-Nov",
     "ratingStars": "★★☆☆☆",
     "ratingScore": "2.0",
-    "sentiment": "Subdued",
-    "applyUrl": "https://your-broker-affiliate-link.com"
+    "sentiment": "Subdued"
   },
   {
     "id": "vectras-enprocon-4",
@@ -50,8 +48,7 @@
     "dates": "30-Oct to 3-Nov",
     "ratingStars": "☆☆☆☆☆",
     "ratingScore": "N/A",
-    "sentiment": "Awaiting GMP",
-    "applyUrl": "https://your-broker-affiliate-link.com"
+    "sentiment": "Awaiting GMP"
   },
   {
     "id": "maxwell-engineering-solutions-5",
@@ -68,8 +65,7 @@
     "dates": "30-Oct to 3-Nov",
     "ratingStars": "★★★★☆",
     "ratingScore": "4.0",
-    "sentiment": "Healthy",
-    "applyUrl": "https://your-broker-affiliate-link.com"
+    "sentiment": "Healthy"
   },
   {
     "id": "antala-industries-6",
@@ -86,8 +82,7 @@
     "dates": "29-Oct to 2-Nov",
     "ratingStars": "☆☆☆☆☆",
     "ratingScore": "N/A",
-    "sentiment": "Awaiting GMP",
-    "applyUrl": "https://your-broker-affiliate-link.com"
+    "sentiment": "Awaiting GMP"
   },
   {
     "id": "bombay-coated-and-special-steels-7",
@@ -104,8 +99,7 @@
     "dates": "29-Oct to 2-Nov",
     "ratingStars": "★★☆☆☆",
     "ratingScore": "2.0",
-    "sentiment": "Subdued",
-    "applyUrl": "https://your-broker-affiliate-link.com"
+    "sentiment": "Subdued"
   },
   {
     "id": "m-k-sons-fine-jewels-8",
@@ -115,15 +109,14 @@
     "statusLabel": "Open Now",
     "statusColor": "green",
     "priceBand": "₹162",
-    "gmp": "+₹3 (1.85%)",
-    "gmpVal": 3,
-    "gmpPercent": 1.85,
-    "estListing": "₹165",
+    "gmp": "+₹6.3 (3.89%)",
+    "gmpVal": 6.3,
+    "gmpPercent": 3.89,
+    "estListing": "₹168",
     "dates": "28-Oct to 30-Oct",
     "ratingStars": "★★☆☆☆",
     "ratingScore": "2.0",
-    "sentiment": "Subdued",
-    "applyUrl": "https://your-broker-affiliate-link.com"
+    "sentiment": "Subdued"
   },
   {
     "id": "ajwa-projects-9",
@@ -140,8 +133,7 @@
     "dates": "28-Oct to 30-Oct",
     "ratingStars": "★★☆☆☆",
     "ratingScore": "2.0",
-    "sentiment": "Subdued",
-    "applyUrl": "https://your-broker-affiliate-link.com"
+    "sentiment": "Subdued"
   },
   {
     "id": "carver-roboweld-10",
@@ -158,8 +150,7 @@
     "dates": "28-Oct to 30-Oct",
     "ratingStars": "★★☆☆☆",
     "ratingScore": "2.0",
-    "sentiment": "Subdued",
-    "applyUrl": "https://your-broker-affiliate-link.com"
+    "sentiment": "Subdued"
   },
   {
     "id": "vedant-poly-fabs-1",
@@ -176,8 +167,7 @@
     "dates": "2-Nov to 4-Nov",
     "ratingStars": "☆☆☆☆☆",
     "ratingScore": "N/A",
-    "sentiment": "Awaiting GMP",
-    "applyUrl": "https://your-broker-affiliate-link.com"
+    "sentiment": "Awaiting GMP"
   },
   {
     "id": "wiscon-industries-11",
@@ -194,8 +184,7 @@
     "dates": "27-Oct to 29-Oct",
     "ratingStars": "☆☆☆☆☆",
     "ratingScore": "N/A",
-    "sentiment": "Awaiting GMP",
-    "applyUrl": null
+    "sentiment": "Awaiting GMP"
   },
   {
     "id": "sfc-environmental-technologies-12",
@@ -212,8 +201,7 @@
     "dates": "27-Oct to 29-Oct",
     "ratingStars": "★★☆☆☆",
     "ratingScore": "2.0",
-    "sentiment": "Subdued",
-    "applyUrl": null
+    "sentiment": "Subdued"
   },
   {
     "id": "bls-polymers-13",
@@ -223,15 +211,14 @@
     "statusLabel": "Closed",
     "statusColor": "red",
     "priceBand": "₹150",
-    "gmp": "+₹74 (49.33%)",
-    "gmpVal": 74,
-    "gmpPercent": 49.33,
-    "estListing": "₹224",
+    "gmp": "+₹73 (48.67%)",
+    "gmpVal": 73,
+    "gmpPercent": 48.67,
+    "estListing": "₹223",
     "dates": "27-Oct to 29-Oct",
     "ratingStars": "★★★★☆",
     "ratingScore": "4.0",
-    "sentiment": "Healthy",
-    "applyUrl": null
+    "sentiment": "Healthy"
   },
   {
     "id": "eaaa-india-alternatives-14",
@@ -241,15 +228,14 @@
     "statusLabel": "Closed",
     "statusColor": "red",
     "priceBand": "₹665",
-    "gmp": "+₹54 (3.24%)",
-    "gmpVal": 54,
-    "gmpPercent": 3.24,
-    "estListing": "₹719",
+    "gmp": "+₹52 (3.12%)",
+    "gmpVal": 52,
+    "gmpPercent": 3.12,
+    "estListing": "₹717",
     "dates": "26-Oct to 28-Oct",
     "ratingStars": "★★☆☆☆",
     "ratingScore": "2.0",
-    "sentiment": "Subdued",
-    "applyUrl": null
+    "sentiment": "Subdued"
   },
   {
     "id": "core4-engineers-15",
@@ -266,8 +252,7 @@
     "dates": "23-Oct to 27-Oct",
     "ratingStars": "☆☆☆☆☆",
     "ratingScore": "N/A",
-    "sentiment": "Awaiting GMP",
-    "applyUrl": null
+    "sentiment": "Awaiting GMP"
   },
   {
     "id": "paras-healthcare-16",
@@ -284,8 +269,7 @@
     "dates": "21-Oct to 23-Oct",
     "ratingStars": "★★☆☆☆",
     "ratingScore": "2.0",
-    "sentiment": "Subdued",
-    "applyUrl": null
+    "sentiment": "Subdued"
   },
   {
     "id": "jio-platforms-17",
@@ -302,8 +286,7 @@
     "dates": "21-Oct to 23-Oct",
     "ratingStars": "★★★☆☆",
     "ratingScore": "3.0",
-    "sentiment": "Moderate",
-    "applyUrl": null
+    "sentiment": "Moderate"
   },
   {
     "id": "zetwerk-18",
@@ -320,8 +303,7 @@
     "dates": "15-Oct to 19-Oct",
     "ratingStars": "★★☆☆☆",
     "ratingScore": "2.0",
-    "sentiment": "Subdued",
-    "applyUrl": null
+    "sentiment": "Subdued"
   },
   {
     "id": "tonbo-imaging-india-19",
@@ -338,8 +320,7 @@
     "dates": "15-Oct to 19-Oct",
     "ratingStars": "★★★★★",
     "ratingScore": "5.0",
-    "sentiment": "Very Strong",
-    "applyUrl": null
+    "sentiment": "Very Strong"
   },
   {
     "id": "sahajanand-medical-technologies-20",
@@ -356,8 +337,7 @@
     "dates": "15-Oct to 19-Oct",
     "ratingStars": "★★☆☆☆",
     "ratingScore": "2.0",
-    "sentiment": "Subdued",
-    "applyUrl": null
+    "sentiment": "Subdued"
   },
   {
     "id": "bonfiglioli-transmissions-21",
@@ -374,8 +354,7 @@
     "dates": "15-Oct to 19-Oct",
     "ratingStars": "★★★☆☆",
     "ratingScore": "3.0",
-    "sentiment": "Moderate",
-    "applyUrl": null
+    "sentiment": "Moderate"
   },
   {
     "id": "shellz-india-22",
@@ -392,8 +371,7 @@
     "dates": "15-Oct to 19-Oct",
     "ratingStars": "★★☆☆☆",
     "ratingScore": "2.0",
-    "sentiment": "Subdued",
-    "applyUrl": null
+    "sentiment": "Subdued"
   },
   {
     "id": "ravita-engineering-services-23",
@@ -410,8 +388,7 @@
     "dates": "14-Oct to 16-Oct",
     "ratingStars": "★★☆☆☆",
     "ratingScore": "2.0",
-    "sentiment": "Subdued",
-    "applyUrl": null
+    "sentiment": "Subdued"
   },
   {
     "id": "fusion-cx-24",
@@ -428,8 +405,7 @@
     "dates": "14-Oct to 16-Oct",
     "ratingStars": "★★☆☆☆",
     "ratingScore": "2.0",
-    "sentiment": "Subdued",
-    "applyUrl": null
+    "sentiment": "Subdued"
   },
   {
     "id": "hd-fire-protect-25",
@@ -446,8 +422,7 @@
     "dates": "13-Oct to 15-Oct",
     "ratingStars": "★★★★☆",
     "ratingScore": "4.0",
-    "sentiment": "Healthy",
-    "applyUrl": null
+    "sentiment": "Healthy"
   },
   {
     "id": "vaibhav-vyapaar-26",
@@ -464,8 +439,7 @@
     "dates": "13-Oct to 15-Oct",
     "ratingStars": "★★☆☆☆",
     "ratingScore": "2.0",
-    "sentiment": "Subdued",
-    "applyUrl": null
+    "sentiment": "Subdued"
   },
   {
     "id": "r-k-fashion-accessories-27",
@@ -482,8 +456,7 @@
     "dates": "5-Oct to 7-Oct",
     "ratingStars": "★★☆☆☆",
     "ratingScore": "2.0",
-    "sentiment": "Subdued",
-    "applyUrl": null
+    "sentiment": "Subdued"
   },
   {
     "id": "paramount-syntex-28",
@@ -500,8 +473,7 @@
     "dates": "30-Sep to 6-Oct",
     "ratingStars": "☆☆☆☆☆",
     "ratingScore": "N/A",
-    "sentiment": "Awaiting GMP",
-    "applyUrl": null
+    "sentiment": "Awaiting GMP"
   },
   {
     "id": "acme-india-industries-29",
@@ -518,8 +490,7 @@
     "dates": "30-Sep to 6-Oct",
     "ratingStars": "★★★☆☆",
     "ratingScore": "3.0",
-    "sentiment": "Moderate",
-    "applyUrl": null
+    "sentiment": "Moderate"
   },
   {
     "id": "tna-solutions-30",
@@ -536,7 +507,6 @@
     "dates": "30-Sep to 6-Oct",
     "ratingStars": "☆☆☆☆☆",
     "ratingScore": "N/A",
-    "sentiment": "Awaiting GMP",
-    "applyUrl": null
+    "sentiment": "Awaiting GMP"
   }
 ]
