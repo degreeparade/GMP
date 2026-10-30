@@ -130,6 +130,28 @@
     .copyright { margin: 0; white-space: nowrap; color: #718198; }
     .risk-statement { max-width: 690px; margin: 0; color: #9eabbf; font-size: .68rem; }
     .risk-statement strong { color: var(--text); }
+    .modal-backdrop { position: fixed; inset: 0; z-index: 20; display: none; place-items: center; padding: 18px; background: rgba(3, 7, 13, .78); backdrop-filter: blur(8px); }
+    .modal-backdrop.open { display: grid; }
+    .modal { width: min(680px, 100%); max-height: min(720px, 92vh); overflow: auto; padding: 24px; border: 1px solid rgba(56,189,248,.28); border-radius: 18px; background: linear-gradient(145deg, #142238, #0e1422); box-shadow: 0 25px 80px rgba(0,0,0,.5); }
+    .modal-head { display: flex; justify-content: space-between; gap: 16px; align-items: start; margin-bottom: 18px; }
+    .modal-head h2 { margin: 0; font-size: 1.15rem; }
+    .modal-close { border: 0; color: var(--muted); background: transparent; cursor: pointer; font-size: 1.4rem; line-height: 1; }
+    .modal-close:hover { color: var(--cyan); }
+    .compare-table { width: 100%; border-collapse: collapse; font-size: .75rem; }
+    .compare-table th, .compare-table td { padding: 11px 8px; border-bottom: 1px solid var(--border); text-align: left; }
+    .compare-table th { color: var(--cyan); font-size: .67rem; text-transform: uppercase; }
+    .modal-note { color: var(--muted); font-size: .76rem; }
+    .calc-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+    .calc-grid label { color: var(--muted); font-size: .72rem; }
+    .calc-grid input { width: 100%; margin-top: 5px; padding: 10px; border: 1px solid var(--border); border-radius: 8px; color: var(--text); background: var(--surface); font: .85rem var(--mono); }
+    .calc-results { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 18px; }
+    .calc-result { padding: 13px; border: 1px solid var(--border); border-radius: 10px; background: rgba(255,255,255,.035); }
+    .calc-result small { display: block; color: var(--muted); font-size: .67rem; }
+    .calc-result strong { display: block; margin-top: 4px; color: var(--green); font: 600 .9rem var(--mono); }
+    .registrars { display: grid; gap: 9px; }
+    .registrars a { display: flex; justify-content: space-between; padding: 12px 14px; border: 1px solid var(--border); border-radius: 9px; color: var(--text); text-decoration: none; background: rgba(255,255,255,.035); }
+    .registrars a:hover { border-color: var(--border-bright); color: var(--cyan); }
+    .warning-box { padding: 14px; border-left: 3px solid var(--amber); color: #d7dfeb; background: rgba(245,158,11,.08); }
     @media (max-width: 800px) {
       .broker-grid { grid-template-columns: repeat(2, 1fr); }
       .ipo-card { grid-template-columns: 1.6fr 1fr 1fr; gap: 14px; }
@@ -146,6 +168,9 @@
       .footer-brand { grid-column: 1 / -1; }
       .footer-bottom { display: block; }
       .copyright { margin-bottom: 14px; white-space: normal; }
+      .calc-grid, .calc-results { grid-template-columns: 1fr; }
+      .compare-table { min-width: 560px; }
+      .modal { padding: 18px; }
     }
   </style>
 </head>
@@ -181,7 +206,7 @@
         <button class="tab-btn active" onclick="switchCategory('mainboard', this)">Mainboard IPOs</button>
         <button class="tab-btn" onclick="switchCategory('sme', this)">SME IPOs</button>
       </div>
-      <input class="search" id="searchInput" type="search" placeholder="Search company name..." aria-label="Search company name" oninput="render()">
+      <input class="search" id="ipoSearch" type="search" placeholder="Search company name..." aria-label="Search company name" oninput="render()">
     </section>
     <p class="meta" id="meta" aria-live="polite">Loading live IPO data...</p>
     <section class="list" id="ipoList" aria-live="polite"></section>
@@ -199,11 +224,11 @@
         </section>
         <nav class="footer-column" aria-label="Markets">
           <h3>📊 Markets</h3>
-          <a href="#mainboard">Mainboard IPOs</a>
-          <a href="#sme">SME IPOs</a>
-          <a href="#gmp">Live GMP Tracker</a>
-          <a href="#calendar">Listing Calendar</a>
-          <a href="#subscriptions">Subscription Ratios</a>
+          <a href="#ipoList" onclick="setCategory('mainboard', event)">Mainboard IPOs</a>
+          <a href="#ipoList" onclick="setCategory('sme', event)">SME IPOs</a>
+          <a href="#ipoList" onclick="focusSearch(event)">Live GMP Tracker</a>
+          <a href="#ipoList" onclick="filterActiveListings(event)">Listing Calendar</a>
+          <a href="#ipoList" onclick="filterActiveListings(event)">Subscription Ratios</a>
         </nav>
         <nav class="footer-column" aria-label="Brokers">
           <h3>🏛 Brokers</h3>
@@ -211,14 +236,14 @@
           <a href="https://angelone.in/open-account" target="_blank" rel="noopener sponsored">Angel One</a>
           <a href="https://zerodha.com/open-account/" target="_blank" rel="noopener sponsored">Zerodha</a>
           <a href="https://dhan.co/open-account/" target="_blank" rel="noopener sponsored">Dhan</a>
-          <a href="#compare">Compare Charges</a>
+          <a href="#compare" onclick="openModal('compareModal', event)">Compare Charges</a>
         </nav>
         <nav class="footer-column" aria-label="Tools">
           <h3>💡 Tools</h3>
-          <a href="#returns">Estimated Return Calc</a>
-          <a href="#lots">Lot Size Guide</a>
-          <a href="#allotment">Allotment Status</a>
-          <a href="#sebi">SEBI Disclosures</a>
+          <a href="#returns" onclick="openCalculator(event)">Estimated Return Calc</a>
+          <a href="#lots" onclick="openCalculator(event)">Lot Size Guide</a>
+          <a href="#allotment" onclick="openModal('allotmentModal', event)">Allotment Status</a>
+          <a href="#sebi" onclick="openModal('sebiModal', event)">SEBI Disclosures</a>
         </nav>
       </div>
       <nav class="trust-bar" aria-label="Platform links">
@@ -234,9 +259,49 @@
       </div>
     </footer>
   </main>
+  <div class="modal-backdrop" id="compareModal" role="dialog" aria-modal="true" aria-labelledby="compareTitle">
+    <section class="modal">
+      <div class="modal-head"><h2 id="compareTitle">Broker Charges Comparison</h2><button class="modal-close" onclick="closeModal('compareModal')" aria-label="Close">&times;</button></div>
+      <table class="compare-table"><thead><tr><th>Broker</th><th>Account opening</th><th>Equity delivery</th><th>Intraday</th><th>Maintenance</th></tr></thead><tbody>
+        <tr><td>Upstox</td><td>Free</td><td>₹20/order</td><td>₹20/order</td><td>₹0 AMC*</td></tr>
+        <tr><td>Angel One</td><td>Free</td><td>₹20/order</td><td>₹20/order</td><td>₹0 AMC*</td></tr>
+        <tr><td>Zerodha</td><td>Free</td><td>₹0</td><td>₹20/order</td><td>₹300/year</td></tr>
+        <tr><td>Dhan</td><td>Free</td><td>₹0</td><td>₹20/order</td><td>₹0 AMC</td></tr>
+      </tbody></table>
+      <p class="modal-note">*Charges are indicative and may change. Check each broker’s official pricing page before opening an account.</p>
+    </section>
+  </div>
+  <div class="modal-backdrop" id="calculatorModal" role="dialog" aria-modal="true" aria-labelledby="calculatorTitle">
+    <section class="modal">
+      <div class="modal-head"><h2 id="calculatorTitle">IPO Listing Gain Calculator</h2><button class="modal-close" onclick="closeModal('calculatorModal')" aria-label="Close">&times;</button></div>
+      <p class="modal-note">Estimate the potential listing gain using the issue price, GMP, and lot size.</p>
+      <div class="calc-grid">
+        <label>Issue Price (₹)<input id="calcPrice" type="number" min="0" step="0.01" value="100" oninput="calculateGain()"></label>
+        <label>Current GMP (₹)<input id="calcGmp" type="number" step="0.01" value="0" oninput="calculateGain()"></label>
+        <label>Lot Size (shares)<input id="calcLot" type="number" min="1" step="1" value="50" oninput="calculateGain()"></label>
+      </div>
+      <div class="calc-results"><div class="calc-result"><small>Total investment required</small><strong id="calcInvestment">₹5,000</strong></div><div class="calc-result"><small>Expected listing profit</small><strong id="calcProfit">₹0</strong></div><div class="calc-result"><small>Expected listing percentage</small><strong id="calcPercent">0.00%</strong></div></div>
+    </section>
+  </div>
+  <div class="modal-backdrop" id="allotmentModal" role="dialog" aria-modal="true" aria-labelledby="allotmentTitle">
+    <section class="modal">
+      <div class="modal-head"><h2 id="allotmentTitle">Check Allotment Status</h2><button class="modal-close" onclick="closeModal('allotmentModal')" aria-label="Close">&times;</button></div>
+      <p class="modal-note">Use the official registrar portal named in your IPO application.</p>
+      <div class="registrars"><a href="https://linkintime.co.in/" target="_blank" rel="noopener">Link Intime <span>↗</span></a><a href="https://ipostatus.kfintech.com/" target="_blank" rel="noopener">KFintech <span>↗</span></a><a href="https://www.bigshareonline.com/" target="_blank" rel="noopener">Bigshare Services <span>↗</span></a><a href="https://www.skylinerta.com/" target="_blank" rel="noopener">Skyline <span>↗</span></a></div>
+    </section>
+  </div>
+  <div class="modal-backdrop" id="sebiModal" role="dialog" aria-modal="true" aria-labelledby="sebiTitle">
+    <section class="modal">
+      <div class="modal-head"><h2 id="sebiTitle">SEBI Disclosure</h2><button class="modal-close" onclick="closeModal('sebiModal')" aria-label="Close">&times;</button></div>
+      <div class="warning-box">IPO Pulse is not a SEBI-registered investment adviser, research analyst, or broker. This website does not provide financial advice, stock calls, or investment recommendations.</div>
+      <p class="modal-note">GMP, sentiment ratings, and estimated listing values are informal dealer-quoted market indicators for educational tracking only. Always read the official DRHP/RHP and consult a qualified adviser before investing.</p>
+      <p><a href="https://www.sebi.gov.in/" target="_blank" rel="noopener">Visit the official SEBI website ↗</a></p>
+    </section>
+  </div>
   <script>
     let allIpos = [];
     let currentCategory = "mainboard";
+    let activeListingsOnly = false;
     const escapeHtml = (value) => String(value ?? "").replace(/[&<>"']/g, (char) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#039;" })[char]);
 
     async function init() {
@@ -258,10 +323,61 @@
       render();
     }
 
+    function setCategory(category, event) {
+      if (event) event.preventDefault();
+      activeListingsOnly = false;
+      const button = [...document.querySelectorAll(".tab-btn")].find((item) => item.textContent.toLowerCase().includes(category));
+      switchCategory(category, button);
+      document.getElementById("ipoList").scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+
+    function focusSearch(event) {
+      if (event) event.preventDefault();
+      activeListingsOnly = false;
+      document.getElementById("ipoList").scrollIntoView({ behavior: "smooth", block: "start" });
+      setTimeout(() => document.getElementById("ipoSearch").focus(), 350);
+    }
+
+    function filterActiveListings(event) {
+      if (event) event.preventDefault();
+      activeListingsOnly = true;
+      document.getElementById("ipoList").scrollIntoView({ behavior: "smooth", block: "start" });
+      render();
+    }
+
+    function openModal(id, event) {
+      if (event) event.preventDefault();
+      document.getElementById(id).classList.add("open");
+      document.body.style.overflow = "hidden";
+    }
+
+    function closeModal(id) {
+      document.getElementById(id).classList.remove("open");
+      if (!document.querySelector(".modal-backdrop.open")) document.body.style.overflow = "";
+    }
+
+    function openCalculator(event) {
+      openModal("calculatorModal", event);
+      calculateGain();
+    }
+
+    function calculateGain() {
+      const price = Math.max(0, Number(document.getElementById("calcPrice").value) || 0);
+      const gmp = Number(document.getElementById("calcGmp").value) || 0;
+      const lot = Math.max(0, Number(document.getElementById("calcLot").value) || 0);
+      const investment = price * lot;
+      const profit = gmp * lot;
+      const percent = price ? (gmp / price) * 100 : 0;
+      const money = (value) => `₹${value.toLocaleString("en-IN", { maximumFractionDigits: 2 })}`;
+      document.getElementById("calcInvestment").textContent = money(investment);
+      document.getElementById("calcProfit").textContent = money(profit);
+      document.getElementById("calcPercent").textContent = `${percent.toFixed(2)}%`;
+    }
+
     function render() {
-      const query = document.getElementById("searchInput").value.trim().toLowerCase();
+      const query = document.getElementById("ipoSearch").value.trim().toLowerCase();
       const container = document.getElementById("ipoList");
-      const filtered = allIpos.filter((ipo) => ipo.category === currentCategory && String(ipo.name || "").toLowerCase().includes(query));
+      const filtered = allIpos.filter((ipo) => ipo.category === currentCategory && (!activeListingsOnly || ipo.status === "open" || ipo.status === "upcoming") && String(ipo.name || "").toLowerCase().includes(query));
       document.getElementById("meta").textContent = `${filtered.length} ${currentCategory === "sme" ? "SME" : "mainboard"} IPO${filtered.length === 1 ? "" : "s"} · refreshed ${new Date().toLocaleTimeString()}`;
       if (!filtered.length) {
         container.innerHTML = '<div class="glass" style="padding:28px;text-align:center;color:var(--muted)">No IPOs found for this filter.</div>';
@@ -280,6 +396,13 @@
         </article>`;
       }).join("");
     }
+
+    document.querySelectorAll(".modal-backdrop").forEach((backdrop) => backdrop.addEventListener("click", (event) => {
+      if (event.target === backdrop) closeModal(backdrop.id);
+    }));
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") document.querySelectorAll(".modal-backdrop.open").forEach((modal) => closeModal(modal.id));
+    });
 
     init();
   </script>
