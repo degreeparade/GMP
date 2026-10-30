@@ -6,56 +6,75 @@
     <meta name="description" content="Live Indian IPO issue and GMP tracker" />
     <title>IPO Pulse | Indian IPO Tracker</title>
     <style>
-      :root { color-scheme: dark; --bg: #0b1020; --card: #131b30; --muted: #9aa8c3; --line: #263552; --accent: #56e39f; --orange: #ffb86b; }
+      :root { color-scheme: dark; --bg: #0a0f1d; --panel: #121b2c; --panel-2: #17243a; --muted: #9aa8bf; --line: #2a3b59; --accent: #55e39e; --gold: #ffc66d; }
       * { box-sizing: border-box; }
-      body { margin: 0; min-height: 100vh; background: radial-gradient(circle at top right, #172c4d, var(--bg) 42%); color: #f5f7fb; font: 16px/1.5 Inter, system-ui, sans-serif; }
-      .wrap { width: min(1120px, calc(100% - 32px)); margin: auto; }
-      header { padding: 52px 0 30px; display: flex; justify-content: space-between; gap: 20px; align-items: end; }
-      h1 { margin: 0; font-size: clamp(2rem, 5vw, 3.8rem); letter-spacing: -0.05em; }
-      .eyebrow { color: var(--accent); font-weight: 700; letter-spacing: .12em; text-transform: uppercase; font-size: .75rem; }
-      .subtitle, .updated { color: var(--muted); }
-      .subtitle { max-width: 580px; margin-bottom: 0; }
-      .ad { border: 1px dashed #405274; border-radius: 14px; min-height: 92px; display: grid; place-items: center; color: #7484a3; margin: 10px 0 32px; }
-      .toolbar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
-      .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(270px, 1fr)); gap: 18px; padding-bottom: 42px; }
-      .card { background: linear-gradient(145deg, #18243e, var(--card)); border: 1px solid var(--line); border-radius: 18px; padding: 22px; box-shadow: 0 18px 40px #0003; }
-      .card h2 { font-size: 1.15rem; margin: 8px 0 4px; }
-      .date { color: var(--muted); font-size: .9rem; }
-      .metrics { display: grid; grid-template-columns: 1fr 1fr; gap: 14px 10px; margin: 22px 0; }
-      .metric label { display: block; color: var(--muted); font-size: .75rem; text-transform: uppercase; letter-spacing: .05em; }
-      .metric strong { display: block; margin-top: 2px; font-size: 1.15rem; }
-      .positive { color: var(--accent); } .negative { color: #ff7b8b; }
-      .stars { color: var(--orange); letter-spacing: 2px; font-size: 1.2rem; }
-      .apply { display: block; text-align: center; background: var(--accent); color: #07151a; padding: 11px 14px; border-radius: 10px; text-decoration: none; font-weight: 800; }
+      body { margin: 0; min-height: 100vh; background: radial-gradient(circle at 85% -5%, #1c3d5d, var(--bg) 42%); color: #f5f7fb; font: 16px/1.5 Inter, system-ui, sans-serif; }
+      .wrap { width: min(940px, calc(100% - 32px)); margin: auto; }
+      header { padding: 48px 0 28px; }
+      h1 { margin: 5px 0 8px; font-size: clamp(2.3rem, 7vw, 4.2rem); letter-spacing: -.06em; line-height: 1; }
+      h2 { font-size: 1.15rem; margin: 0; }
+      .eyebrow { color: var(--accent); font-size: .73rem; font-weight: 800; letter-spacing: .13em; text-transform: uppercase; }
+      .subtitle, .muted, .updated { color: var(--muted); }
+      .subtitle { max-width: 600px; margin: 0; }
+      .ad { min-height: 94px; display: grid; place-items: center; border: 1px dashed #496080; border-radius: 14px; color: #8293af; margin: 0 0 30px; }
+      .controls { display: grid; grid-template-columns: minmax(220px, 1fr) auto; gap: 16px; align-items: center; margin-bottom: 20px; }
+      .search { width: 100%; padding: 12px 15px; background: var(--panel); color: inherit; border: 1px solid var(--line); border-radius: 10px; font: inherit; outline: none; }
+      .search:focus { border-color: var(--accent); }
+      .tabs { display: flex; gap: 7px; flex-wrap: wrap; }
+      .tab { cursor: pointer; border: 1px solid var(--line); background: transparent; color: var(--muted); padding: 9px 12px; border-radius: 9px; font: inherit; white-space: nowrap; }
+      .tab.active, .tab:hover { color: #07151a; background: var(--accent); border-color: var(--accent); }
+      .list { overflow: hidden; border: 1px solid var(--line); border-radius: 14px; background: #10192a99; margin-bottom: 40px; }
+      .row { display: grid; grid-template-columns: minmax(180px, 1.7fr) .7fr .9fr .9fr .9fr auto; gap: 16px; align-items: center; padding: 18px 20px; border-bottom: 1px solid var(--line); }
+      .row:last-child { border-bottom: 0; }
+      .company { font-weight: 750; }
+      .company small, .label { display: block; color: var(--muted); font-size: .75rem; font-weight: 500; }
+      .value { display: block; margin-top: 2px; font-weight: 700; white-space: nowrap; }
+      .stars { color: var(--gold); letter-spacing: 1px; white-space: nowrap; }
+      .positive { color: var(--accent); } .negative { color: #ff8291; }
+      .apply { display: inline-block; padding: 9px 12px; border-radius: 8px; background: var(--accent); color: #06151a; font-size: .86rem; font-weight: 800; text-decoration: none; white-space: nowrap; }
       footer { color: var(--muted); border-top: 1px solid var(--line); padding: 24px 0 42px; font-size: .85rem; }
-      @media (max-width: 620px) { header { display: block; padding-top: 34px; } .updated { margin-top: 14px; } }
+      @media (max-width: 820px) { .controls { grid-template-columns: 1fr; } .row { grid-template-columns: 1.4fr 1fr 1fr; gap: 12px; } .row .apply { grid-column: 1 / -1; text-align: center; } }
+      @media (max-width: 520px) { .row { grid-template-columns: 1fr 1fr; padding: 16px; } .row .company { grid-column: 1 / -1; } .wrap { width: min(100% - 20px, 940px); } }
     </style>
   </head>
   <body>
     <main class="wrap">
-      <header>
-        <div><div class="eyebrow">Indian primary markets</div><h1>IPO Pulse</h1><p class="subtitle">Track issue details, grey market premium and indicative listing estimates in one place.</p></div>
-        <div class="updated" id="updated">Loading live data…</div>
-      </header>
+      <header><div class="eyebrow">Indian primary markets</div><h1>IPO Pulse</h1><p class="subtitle">Live issue details, grey market premiums, and indicative listing estimates.</p></header>
       <section class="ad" aria-label="Advertisement">Google AdSense banner placeholder</section>
-      <div class="toolbar"><h2>Latest IPOs</h2><span class="updated" id="count"></span></div>
-      <section class="grid" id="ipo-grid" aria-live="polite"></section>
-      <footer><strong>Disclaimer:</strong> GMP and listing estimates are indicative, unofficial and can change without notice. This website is for information only and is not financial advice. Always read the offer document and consult a qualified adviser.</footer>
+      <section class="controls" aria-label="IPO filters">
+        <input class="search" id="search" type="search" placeholder="Search IPOs by company name…" aria-label="Search IPOs by company name" />
+        <nav class="tabs" aria-label="IPO categories">
+          <button class="tab active" data-category="mainboard">Mainboard IPOs</button>
+          <button class="tab" data-category="sme">SME IPOs</button>
+          <button class="tab" data-category="past">Past IPOs</button>
+        </nav>
+      </section>
+      <div class="muted" id="status" aria-live="polite">Loading live data…</div>
+      <section class="list" id="ipo-list" aria-live="polite"></section>
+      <footer><strong>Disclaimer:</strong> GMP and star ratings are purely informal market estimates and are not investment advice. GMP is unofficial, can change without notice, and should not be used as the sole basis for any investment decision.</footer>
     </main>
     <script>
-      const grid = document.querySelector("#ipo-grid");
+      const list = document.querySelector("#ipo-list");
+      const status = document.querySelector("#status");
+      const search = document.querySelector("#search");
+      let selectedCategory = "mainboard";
+      let ipos = [];
       const money = (value) => `₹${Number(value).toLocaleString("en-IN")}`;
-      fetch("data.json").then((response) => { if (!response.ok) throw new Error("Data unavailable"); return response.json(); })
-        .then((ipos) => {
-          document.querySelector("#count").textContent = `${ipos.length} tracked`;
-          const latest = ipos.reduce((date, ipo) => ipo.updatedAt > date ? ipo.updatedAt : date, "");
-          document.querySelector("#updated").textContent = latest ? `Updated ${new Date(latest).toLocaleString("en-IN")}` : "";
-          grid.innerHTML = ipos.map((ipo) => {
-            const stars = "★".repeat(ipo.rating) + "☆".repeat(5 - ipo.rating);
-            const direction = ipo.gmp >= 0 ? "positive" : "negative";
-            return `<article class="card"><div class="eyebrow">${ipo.source}</div><h2>${ipo.name}</h2><div class="date">${ipo.dates}</div><div class="metrics"><div class="metric"><label>Price band</label><strong>${ipo.priceBand}</strong></div><div class="metric"><label>GMP</label><strong class="${direction}">${money(ipo.gmp)} (${ipo.gmpPercent}%)</strong></div><div class="metric"><label>Est. listing</label><strong>${money(ipo.listingEstimate)}</strong></div><div class="metric"><label>Signal</label><strong class="stars" title="${ipo.rating} out of 5 stars">${stars}</strong></div></div><a class="apply" href="https://example.com/affiliate-broker?ipo=${encodeURIComponent(ipo.name)}" target="_blank" rel="noopener sponsored">Apply on Broker ↗</a></article>`;
-          }).join("");
-        }).catch((error) => { grid.innerHTML = `<p role="alert">Unable to load IPO data: ${error.message}</p>`; });
+      const escapeHtml = (value) => String(value).replace(/[&<>"']/g, (char) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#039;" })[char]);
+      function render() {
+        const query = search.value.trim().toLowerCase();
+        const filtered = ipos.filter((ipo) => ipo.category === selectedCategory && ipo.name.toLowerCase().includes(query));
+        status.textContent = `${filtered.length} ${selectedCategory === "past" ? "past" : "active"} IPO${filtered.length === 1 ? "" : "s"} · Updated ${ipos[0] ? new Date(ipos[0].updatedAt).toLocaleString("en-IN") : "—"}`;
+        if (!filtered.length) { list.innerHTML = '<p class="muted" style="padding:22px">No IPOs match this category and search.</p>'; return; }
+        list.innerHTML = filtered.map((ipo) => {
+          const stars = "★".repeat(ipo.rating) + "☆".repeat(5 - ipo.rating);
+          const tone = ipo.gmp < 0 ? "negative" : "positive";
+          return `<article class="row"><div class="company">${escapeHtml(ipo.name)}<small>${escapeHtml(ipo.dates)} · ${escapeHtml(ipo.ratingLabel)}</small></div><div><span class="label">Rating</span><strong class="value stars" title="${ipo.rating} out of 5 stars">${stars}</strong></div><div><span class="label">Price band</span><strong class="value">${escapeHtml(ipo.priceBand)}</strong></div><div><span class="label">Current GMP</span><strong class="value ${tone}">${money(ipo.gmp)} (${ipo.gmpPercent}%)</strong></div><div><span class="label">Est. listing</span><strong class="value">${money(ipo.listingEstimate)}</strong></div><a class="apply" href="${escapeHtml(ipo.applyUrl)}" target="_blank" rel="noopener sponsored">Apply on Broker ↗</a></article>`;
+        }).join("");
+      }
+      document.querySelectorAll(".tab").forEach((tab) => tab.addEventListener("click", () => { selectedCategory = tab.dataset.category; document.querySelectorAll(".tab").forEach((item) => item.classList.toggle("active", item === tab)); render(); }));
+      search.addEventListener("input", render);
+      fetch("data.json").then((response) => { if (!response.ok) throw new Error("Data unavailable"); return response.json(); }).then((data) => { ipos = data; render(); }).catch((error) => { status.textContent = `Unable to load IPO data: ${error.message}`; });
     </script>
   </body>
 </html>

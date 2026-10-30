@@ -1,6 +1,7 @@
 [
   {
     "name": "HGS India",
+    "category": "sme",
     "dates": "30 Oct",
     "priceBand": "₹114 - ₹120",
     "issuePrice": 120,
@@ -8,11 +9,14 @@
     "gmpPercent": 0,
     "listingEstimate": 120,
     "rating": 2,
+    "ratingLabel": "Subdued",
+    "applyUrl": "https://example.com/affiliate-broker?ipo=HGS%20India",
     "source": "IPO360",
-    "updatedAt": "2026-10-29T18:02:21.552Z"
+    "updatedAt": "2026-10-29T18:16:07.457Z"
   },
   {
     "name": "Vectras Enprocon",
+    "category": "sme",
     "dates": "30 Oct",
     "priceBand": "₹99 - ₹105",
     "issuePrice": 105,
@@ -20,11 +24,14 @@
     "gmpPercent": 0,
     "listingEstimate": 105,
     "rating": 2,
+    "ratingLabel": "Subdued",
+    "applyUrl": "https://example.com/affiliate-broker?ipo=Vectras%20Enprocon",
     "source": "IPO360",
-    "updatedAt": "2026-10-29T18:02:21.553Z"
+    "updatedAt": "2026-10-29T18:16:07.457Z"
   },
   {
     "name": "Maxwell Engineering",
+    "category": "sme",
     "dates": "29 Oct",
     "priceBand": "₹150 - ₹158",
     "issuePrice": 158,
@@ -32,11 +39,14 @@
     "gmpPercent": 32.91,
     "listingEstimate": 210,
     "rating": 4,
+    "ratingLabel": "Healthy Demand",
+    "applyUrl": "https://example.com/affiliate-broker?ipo=Maxwell%20Engineering",
     "source": "IPO360",
-    "updatedAt": "2026-10-29T18:02:21.553Z"
+    "updatedAt": "2026-10-29T18:16:07.457Z"
   },
   {
     "name": "Bombay Coated",
+    "category": "mainboard",
     "dates": "29 Oct",
     "priceBand": "₹78 - ₹82",
     "issuePrice": 82,
@@ -44,11 +54,14 @@
     "gmpPercent": 9.76,
     "listingEstimate": 90,
     "rating": 2,
+    "ratingLabel": "Subdued",
+    "applyUrl": "https://example.com/affiliate-broker?ipo=Bombay%20Coated",
     "source": "IPO360",
-    "updatedAt": "2026-10-29T18:02:21.553Z"
+    "updatedAt": "2026-10-29T18:16:07.457Z"
   },
   {
     "name": "Antala Industries",
+    "category": "sme",
     "dates": "29 Oct",
     "priceBand": "₹63 - ₹67",
     "issuePrice": 67,
@@ -56,11 +69,14 @@
     "gmpPercent": 0,
     "listingEstimate": 67,
     "rating": 2,
+    "ratingLabel": "Subdued",
+    "applyUrl": "https://example.com/affiliate-broker?ipo=Antala%20Industries",
     "source": "IPO360",
-    "updatedAt": "2026-10-29T18:02:21.553Z"
+    "updatedAt": "2026-10-29T18:16:07.457Z"
   },
   {
     "name": "MK Sons",
+    "category": "past",
     "dates": "28 Oct",
     "priceBand": "₹153 - ₹162",
     "issuePrice": 162,
@@ -68,11 +84,14 @@
     "gmpPercent": 7.41,
     "listingEstimate": 174,
     "rating": 2,
+    "ratingLabel": "Subdued",
+    "applyUrl": "https://example.com/affiliate-broker?ipo=MK%20Sons",
     "source": "IPO360",
-    "updatedAt": "2026-10-29T18:02:21.553Z"
+    "updatedAt": "2026-10-29T18:16:07.457Z"
   },
   {
     "name": "Ajwa Projects",
+    "category": "past",
     "dates": "28 Oct",
     "priceBand": "₹203",
     "issuePrice": 203,
@@ -80,11 +99,14 @@
     "gmpPercent": 2.96,
     "listingEstimate": 209,
     "rating": 2,
+    "ratingLabel": "Subdued",
+    "applyUrl": "https://example.com/affiliate-broker?ipo=Ajwa%20Projects",
     "source": "IPO360",
-    "updatedAt": "2026-10-29T18:02:21.553Z"
+    "updatedAt": "2026-10-29T18:16:07.457Z"
   },
   {
     "name": "Carver Roboweld",
+    "category": "past",
     "dates": "28 Oct",
     "priceBand": "₹76 - ₹80",
     "issuePrice": 80,
@@ -92,11 +114,14 @@
     "gmpPercent": 0,
     "listingEstimate": 80,
     "rating": 2,
+    "ratingLabel": "Subdued",
+    "applyUrl": "https://example.com/affiliate-broker?ipo=Carver%20Roboweld",
     "source": "IPO360",
-    "updatedAt": "2026-10-29T18:02:21.553Z"
+    "updatedAt": "2026-10-29T18:16:07.457Z"
   },
   {
     "name": "BLS Polymers",
+    "category": "past",
     "dates": "27 Oct",
     "priceBand": "₹142 - ₹150",
     "issuePrice": 150,
@@ -104,11 +129,14 @@
     "gmpPercent": 46.67,
     "listingEstimate": 220,
     "rating": 5,
+    "ratingLabel": "Healthy Demand",
+    "applyUrl": "https://example.com/affiliate-broker?ipo=BLS%20Polymers",
     "source": "IPO360",
-    "updatedAt": "2026-10-29T18:02:21.553Z"
+    "updatedAt": "2026-10-29T18:16:07.457Z"
   },
   {
     "name": "SFC Environmental",
+    "category": "past",
     "dates": "27 Oct",
     "priceBand": "₹313 - ₹330",
     "issuePrice": 330,
@@ -116,11 +144,14 @@
     "gmpPercent": 4.85,
     "listingEstimate": 346,
     "rating": 2,
+    "ratingLabel": "Subdued",
+    "applyUrl": "https://example.com/affiliate-broker?ipo=SFC%20Environmental",
     "source": "IPO360",
-    "updatedAt": "2026-10-29T18:02:21.553Z"
+    "updatedAt": "2026-10-29T18:16:07.458Z"
   },
   {
     "name": "Wiscon Industries",
+    "category": "past",
     "dates": "27 Oct",
     "priceBand": "₹194 - ₹204",
     "issuePrice": 204,
@@ -128,11 +159,14 @@
     "gmpPercent": 0,
     "listingEstimate": 204,
     "rating": 2,
+    "ratingLabel": "Subdued",
+    "applyUrl": "https://example.com/affiliate-broker?ipo=Wiscon%20Industries",
     "source": "IPO360",
-    "updatedAt": "2026-10-29T18:02:21.553Z"
+    "updatedAt": "2026-10-29T18:16:07.458Z"
   },
   {
     "name": "EAAA India",
+    "category": "past",
     "dates": "26 Oct",
     "priceBand": "₹1585 - ₹1665",
     "issuePrice": 1665,
@@ -140,11 +174,14 @@
     "gmpPercent": 1.98,
     "listingEstimate": 1698,
     "rating": 2,
+    "ratingLabel": "Subdued",
+    "applyUrl": "https://example.com/affiliate-broker?ipo=EAAA%20India",
     "source": "IPO360",
-    "updatedAt": "2026-10-29T18:02:21.553Z"
+    "updatedAt": "2026-10-29T18:16:07.458Z"
   },
   {
     "name": "Core4 Engineers",
+    "category": "sme",
     "dates": "23 Oct",
     "priceBand": "₹88 - ₹93",
     "issuePrice": 93,
@@ -152,7 +189,9 @@
     "gmpPercent": 0,
     "listingEstimate": 93,
     "rating": 2,
+    "ratingLabel": "Subdued",
+    "applyUrl": "https://example.com/affiliate-broker?ipo=Core4%20Engineers",
     "source": "IPO360",
-    "updatedAt": "2026-10-29T18:02:21.553Z"
+    "updatedAt": "2026-10-29T18:16:07.458Z"
   }
 ]

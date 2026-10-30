@@ -31,6 +31,10 @@ function displayName(value) {
   return clean(value).replace(/\s+ipo\b.*$/i, "").trim() || clean(value);
 }
 
+function categoryFromName(value) {
+  return /\bSME\b/i.test(value) ? "sme" : "mainboard";
+}
+
 function number(value) {
   const match = clean(value).replace(/,/g, "").match(/-?\d+(?:\.\d+)?/);
   return match ? Number(match[0]) : null;
@@ -38,9 +42,18 @@ function number(value) {
 
 function dateRange(value) {
   const text = clean(value);
-  const dates = text.match(/\d{1,2}(?:[-/]\d{1,2})?[-/]\d{2,4}/g);
+  const dates = text.match(/\d{1,2}(?:[-/]\d{1,2})?(?:\s+[A-Za-z]{3,9})?(?:[-/]\d{1,2})?(?:\s+[A-Za-z]{3,9})?(?:[-/]\d{2,4})?/g);
   if (!dates) return text || "TBA";
   return dates.join(" - ");
+}
+
+function closingDate(value) {
+  const text = clean(value);
+  const match = text.match(/(\d{1,2})(?:[-/]\d{1,2})?\s+([A-Za-z]{3,9})/);
+  if (!match) return null;
+  const year = new Date().getFullYear();
+  const date = new Date(`${match[1]} ${match[2]} ${year} 23:59:59`);
+  return Number.isNaN(date.getTime()) ? null : date;
 }
 
 function findColumn(headers, candidates) {
@@ -79,6 +92,7 @@ function parseIssues(html) {
 
     for (const row of rows.slice(1)) {
       const name = displayName(row[nameIndex]);
+      const rawName = clean(row[nameIndex]);
       const priceText = clean(row[priceIndex]);
       if (!name || !priceText || name.toLowerCase() === "company") continue;
       const prices = priceText.match(/\d[\d,]*(?:\.\d+)?/g) || [];
@@ -87,7 +101,9 @@ function parseIssues(html) {
       if (!high) continue;
       results.push({
         name,
+        category: categoryFromName(rawName),
         dates: dateRange(dateIndex >= 0 ? row[dateIndex] : ""),
+        closingDate: closingDate(rawName),
         priceBand: low === high ? `₹${high}` : `₹${low} - ₹${high}`,
         issuePrice: high,
       });
@@ -156,6 +172,10 @@ async function main() {
       const gmpPercent = Number(((gmp.gmp / issuePrice) * 100).toFixed(2));
       return {
         name: issue.name,
+        category:
+          issue.closingDate && issue.closingDate < new Date()
+            ? "past"
+            : issue.category,
         dates: issue.dates,
         priceBand: issue.priceBand,
         issuePrice,
@@ -163,6 +183,17 @@ async function main() {
         gmpPercent,
         listingEstimate: issuePrice + gmp.gmp,
         rating: rating(gmpPercent),
+        ratingLabel:
+          gmpPercent >= 50
+            ? "Strong Demand"
+            : gmpPercent >= 25
+              ? "Healthy Demand"
+              : gmpPercent >= 10
+                ? "Moderate"
+                : gmpPercent >= 0
+                  ? "Subdued"
+                  : "Discount Expected",
+        applyUrl: `https://example.com/affiliate-broker?ipo=${encodeURIComponent(issue.name)}`,
         source: "IPO360",
         updatedAt: new Date().toISOString(),
       };
