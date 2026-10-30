@@ -5,16 +5,6 @@ const path = require('path');
 
 const SOURCE_URL = 'https://www.investorgain.com/report/live-ipo-gmp/331/ipo/';
 const LIVE_TABLE_URL = 'https://www.investorgain.com/report/ipo-gmp-live/331/';
-const REGISTRAR_URLS = {
-  'link intime': 'https://linkintime.co.in/initial_offer/public-issues.html',
-  'mufg intime': 'https://linkintime.co.in/initial_offer/public-issues.html',
-  'kfin technologies': 'https://ris.kfintech.com/ipostatus/',
-  kfintech: 'https://ris.kfintech.com/ipostatus/',
-  'bigshare services': 'https://ipo.bigshareonline.com/IPO_Status.html',
-  'cameo corporate': 'https://ipo.cameoindia.com/',
-  maashitla: 'https://maashitla.com/allotment-status',
-  skyline: 'https://www.skylinerta.com/ipo.php'
-};
 
 function getSentimentRating(gmpPercent) {
   if (!Number.isFinite(gmpPercent)) {
@@ -112,36 +102,9 @@ function statusFor(rawName, rowText, openText, closeText) {
   return { value: 'upcoming', label: 'Upcoming', color: 'yellow' };
 }
 
-function registrarDetails(value) {
-  const text = clean(value).toLowerCase();
-  const registrarName = Object.keys(REGISTRAR_URLS).find((name) => text.includes(name));
-  if (!registrarName) {
-    return { name: 'Registrar details unavailable', url: 'https://www.sebi.gov.in/' };
-  }
-  const displayName = registrarName === 'kfintech'
-    ? 'KFintech'
-    : registrarName === 'mufg intime'
-      ? 'Link Intime'
-      : registrarName.replace(/\b\w/g, (letter) => letter.toUpperCase());
-  return { name: displayName, url: REGISTRAR_URLS[registrarName] };
-}
-
-async function fetchRegistrar(detailUrl) {
-  if (!detailUrl) return registrarDetails('');
-  try {
-    const html = await fetchPage(new URL(detailUrl, SOURCE_URL).toString());
-    const $ = cheerio.load(html);
-    const structured = $('script').map((_, script) => $(script).html()).get().join(' ');
-    return registrarDetails(`${$('body').text()} ${structured}`);
-  } catch (error) {
-    console.warn(`Registrar lookup failed for ${detailUrl}: ${error.message}`);
-    return registrarDetails('');
-  }
-}
-
-async function parseRows(html) {
+function parseRows(html) {
   const $ = cheerio.load(html);
-  const rows = [];
+  const ipos = [];
 
   $('table tr').each((_, row) => {
     const cells = $(row).find('td');
@@ -171,10 +134,8 @@ async function parseRows(html) {
     const status = statusFor(rawName, rowText, openText, closeText);
     const estListing = `₹${Math.round(price + gmp.value)}`;
 
-    rows.push({
-      detailUrl: cells.eq(0).find('a').attr('href') || '',
-      record: {
-      id: `${name.toLowerCase().replace(/[^a-z0-9]+/g, '-')}-${rows.length + 1}`,
+    ipos.push({
+      id: `${name.toLowerCase().replace(/[^a-z0-9]+/g, '-')}-${ipos.length + 1}`,
       name,
       category: /SME/i.test(rawName) ? 'sme' : 'mainboard',
       status: status.value,
@@ -188,17 +149,11 @@ async function parseRows(html) {
       dates,
       ratingStars: rating.stars,
       ratingScore: rating.score,
-      sentiment: rating.sentiment,
-      registrarName: 'Registrar details unavailable',
-      allotmentUrl: 'https://www.sebi.gov.in/'
-      }
+      sentiment: rating.sentiment
     });
   });
 
-  return Promise.all(rows.map(async ({ detailUrl, record }) => {
-    const registrar = await fetchRegistrar(detailUrl);
-    return { ...record, registrarName: registrar.name, allotmentUrl: registrar.url };
-  }));
+  return ipos;
 }
 
 async function fetchPage(url = SOURCE_URL) {
@@ -221,8 +176,8 @@ async function fetchPage(url = SOURCE_URL) {
 async function scrapeIPOData() {
   try {
     console.log('Fetching live IPO GMP data...');
-    let ipos = await parseRows(await fetchPage());
-    if (!ipos.length) ipos = await parseRows(await fetchPage(LIVE_TABLE_URL));
+    let ipos = parseRows(await fetchPage());
+    if (!ipos.length) ipos = parseRows(await fetchPage(LIVE_TABLE_URL));
     if (!ipos.length) throw new Error('No IPO table rows found.');
 
     const statusWeight = { open: 1, upcoming: 2, closed: 3 };

@@ -150,9 +150,6 @@
     .calc-result { padding: 13px; border: 1px solid var(--border); border-radius: 10px; background: rgba(255,255,255,.035); }
     .calc-result small { display: block; color: var(--muted); font-size: .67rem; }
     .calc-result strong { display: block; margin-top: 4px; color: var(--green); font: 600 .9rem var(--mono); }
-    .registrars { display: grid; gap: 9px; }
-    .registrars a { display: flex; justify-content: space-between; padding: 12px 14px; border: 1px solid var(--border); border-radius: 9px; color: var(--text); text-decoration: none; background: rgba(255,255,255,.035); }
-    .registrars a:hover { border-color: var(--border-bright); color: var(--cyan); }
     .warning-box { padding: 14px; border-left: 3px solid var(--amber); color: #d7dfeb; background: rgba(245,158,11,.08); }
     .detail-modal { width: min(760px, 100%); }
     .detail-kicker { display: flex; align-items: center; gap: 9px; margin-bottom: 5px; color: var(--muted); font-size: .72rem; }
@@ -168,8 +165,6 @@
     .action-row { display: flex; flex-wrap: wrap; gap: 9px; }
     .action-link { display: inline-flex; padding: 9px 13px; border: 1px solid rgba(56,189,248,.35); border-radius: 8px; color: var(--cyan); background: rgba(56,189,248,.08); text-decoration: none; font-size: .75rem; font-weight: 700; }
     .action-link:hover { border-color: var(--cyan); background: rgba(56,189,248,.16); }
-    .btn-allotment { display: inline-flex; padding: 10px 14px; border: 1px solid rgba(244,63,94,.42); border-radius: 8px; color: #fecdd3; background: rgba(244,63,94,.1); text-decoration: none; font-size: .75rem; font-weight: 700; }
-    .btn-allotment:hover { border-color: var(--red); background: rgba(244,63,94,.18); }
     .closed-alert { margin-bottom: 12px; padding: 13px; border: 1px solid rgba(244,63,94,.35); border-radius: 9px; color: #fecdd3; background: rgba(244,63,94,.09); font-size: .78rem; }
     @media (max-width: 800px) {
       .broker-grid { grid-template-columns: repeat(2, 1fr); }
@@ -201,16 +196,16 @@
       <p class="subtitle">Track Indian IPOs, grey market premiums, and indicative listing prices in one clear view.</p>
     </header>
 
-    <section class="launchpad glass" aria-label="Broker launchpad">
+    <section class="launchpad glass" id="launchpad" aria-label="Broker launchpad">
       <div class="launchpad-heading">
         <div><h2>Open a Demat Account to Apply for IPOs</h2><p>Get started with a trusted online broker.</p></div>
         <span class="partner-note">Partner links · Terms apply</span>
       </div>
       <div class="broker-grid">
-        <a class="broker" href="https://upstox.com/open-account/" target="_blank" rel="noopener sponsored"><span class="broker-name">Upstox</span><span class="broker-perk">Fast online demat</span></a>
         <a class="broker" href="https://angelone.in/open-account" target="_blank" rel="noopener sponsored"><span class="broker-name">Angel One</span><span class="broker-perk">Free account + zero brokerage</span></a>
-        <a class="broker" href="https://zerodha.com/open-account/" target="_blank" rel="noopener sponsored"><span class="broker-name">Zerodha</span><span class="broker-perk">Top discount broker</span></a>
         <a class="broker" href="https://dhan.co/open-account/" target="_blank" rel="noopener sponsored"><span class="broker-name">Dhan</span><span class="broker-perk">Zero AMC</span></a>
+        <a class="broker" href="https://zerodha.com/open-account/" target="_blank" rel="noopener sponsored"><span class="broker-name">Zerodha</span><span class="broker-perk">Top discount broker</span></a>
+        <a class="broker" href="https://groww.in/open-account" target="_blank" rel="noopener sponsored"><span class="broker-name">Groww</span><span class="broker-perk">Simple investing account</span></a>
       </div>
     </section>
 
@@ -381,20 +376,17 @@
       const price = ipo.priceBand || "—";
       const gmp = ipo.gmp || "Awaiting GMP";
       const listing = ipo.estListing || price;
-      const lot = Number(ipo.lotSize || ipo.lot || 0);
-      const issuePrice = Number(String(ipo.priceBand || "").replace(/[^\d.]/g, "")) || 0;
-      const minInvestment = lot && issuePrice ? `₹${(lot * issuePrice).toLocaleString("en-IN")}` : "Not reported";
       const gain = ipo.gmpPercent === "N/A" || ipo.gmpPercent === null || ipo.gmpPercent === undefined ? "N/A" : `${ipo.gmpPercent}%`;
-      const summary = `About ${name}: This ${category} issue opened with a price band of ${price}. At the current Grey Market Premium of ${gmp}, market participants estimate an opening near ${listing} reflecting ${ipo.sentiment || "Awaiting GMP"} retail demand. Bidding window: ${ipo.dates || "TBA"}.`;
       const action = status === "open"
-        ? `<h3>Apply through a broker</h3><div class="action-row"><a class="action-link" href="https://upstox.com/open-account/" target="_blank" rel="noopener sponsored">Apply via Upstox ↗</a><a class="action-link" href="https://angelone.in/open-account" target="_blank" rel="noopener sponsored">Apply via Angel One ↗</a><a class="action-link" href="https://zerodha.com/open-account/" target="_blank" rel="noopener sponsored">Apply via Zerodha ↗</a></div>`
+        ? `<h3>Ready to apply?</h3><div class="action-row"><a class="action-link" href="#launchpad" onclick="closeModal('ipoDetailModal'); document.getElementById('launchpad').scrollIntoView({ behavior: 'smooth' });">Open Demat Account to Apply</a></div>`
         : status === "closed"
-          ? `<div class="closed-alert">🔴 Bidding for this issue has officially ended. Allotment is finalized by the appointed registrar.</div><h3>Check allotment status</h3><a class="btn-allotment" href="${escapeHtml(ipo.allotmentUrl || '#')}" target="_blank" rel="noopener">Check Official Allotment on ${escapeHtml(ipo.registrarName || "appointed registrar")} &rarr;</a>`
-          : `<p class="modal-note">This issue is upcoming. Application links will be relevant once the bidding window opens.</p>`;
+          ? `<span class="status closed">Bidding Closed</span>`
+          : `<p class="modal-note">Applications will be available when the bidding window opens.</p>`;
+      const summary = `About ${name}: This ${category} issue has a price band of ${price}. At the current Grey Market Premium of ${gmp}, market participants estimate an opening near ${listing}, reflecting ${ipo.sentiment || "Awaiting GMP"} retail demand.`;
       document.getElementById("ipoDetailContent").innerHTML = `
         <div class="modal-head"><div><div class="detail-kicker"><i class="dot dot-${color}"></i><span class="category-badge">${category}</span><span>${escapeHtml(ipo.statusLabel || "Upcoming")}</span></div><h2 class="detail-title" id="ipoDetailTitle">${escapeHtml(name)}</h2></div><button class="modal-close" onclick="closeModal('ipoDetailModal')" aria-label="Close">&times;</button></div>
-        <div class="detail-grid"><div class="detail-cell"><small>Issue price band</small><strong>${escapeHtml(price)}</strong></div><div class="detail-cell"><small>Current GMP</small><strong>${escapeHtml(gmp)}</strong></div><div class="detail-cell"><small>Estimated listing</small><strong>${escapeHtml(listing)}</strong></div><div class="detail-cell"><small>Expected listing gain</small><strong>${gain}</strong></div><div class="detail-cell"><small>Retail minimum lot</small><strong>${lot ? `${lot} shares` : "Not reported"}</strong></div><div class="detail-cell"><small>Minimum investment</small><strong>${minInvestment}</strong></div></div>
-        <p class="detail-summary">${escapeHtml(summary)}</p>
+        <div class="detail-grid"><div class="detail-cell"><small>Issue price band</small><strong>${escapeHtml(price)}</strong></div><div class="detail-cell"><small>Current GMP</small><strong>${escapeHtml(gmp)}</strong></div><div class="detail-cell"><small>Estimated listing</small><strong>${escapeHtml(listing)}</strong></div><div class="detail-cell"><small>Expected listing gain</small><strong>${gain}</strong></div><div class="detail-cell"><small>Open bidding date</small><strong>${escapeHtml((ipo.dates || "TBA").split(" to ")[0])}</strong></div><div class="detail-cell"><small>Close bidding date</small><strong>${escapeHtml((ipo.dates || "TBA").split(" to ").slice(-1)[0])}</strong></div></div>
+        <p class="detail-summary">${escapeHtml(summary)} Bidding window: ${escapeHtml(ipo.dates || "TBA")}.</p>
         <div class="detail-actions">${action}</div>`;
       openModal("ipoDetailModal");
     }
