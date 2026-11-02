@@ -1,5 +1,22 @@
 [
   {
+    "id": "vedant-poly-fabs-1",
+    "name": "Vedant Poly Fabs",
+    "category": "sme",
+    "status": "open",
+    "statusLabel": "Open Now",
+    "statusColor": "green",
+    "priceBand": "₹94",
+    "gmp": "+₹15 (15.96%)",
+    "gmpVal": 15,
+    "gmpPercent": 15.96,
+    "estListing": "₹109",
+    "dates": "2-Nov to 4-Nov",
+    "ratingStars": "★★★☆☆",
+    "ratingScore": "3.0",
+    "sentiment": "Moderate"
+  },
+  {
     "id": "hgs-india--2",
     "name": "HGS (India)",
     "category": "sme",
@@ -97,23 +114,6 @@
     "gmpPercent": 10.98,
     "estListing": "₹91",
     "dates": "29-Oct to 2-Nov",
-    "ratingStars": "★★★☆☆",
-    "ratingScore": "3.0",
-    "sentiment": "Moderate"
-  },
-  {
-    "id": "vedant-poly-fabs-1",
-    "name": "Vedant Poly Fabs",
-    "category": "sme",
-    "status": "upcoming",
-    "statusLabel": "Upcoming",
-    "statusColor": "yellow",
-    "priceBand": "₹94",
-    "gmp": "+₹15 (15.96%)",
-    "gmpVal": 15,
-    "gmpPercent": 15.96,
-    "estListing": "₹109",
-    "dates": "2-Nov to 4-Nov",
     "ratingStars": "★★★☆☆",
     "ratingScore": "3.0",
     "sentiment": "Moderate"
