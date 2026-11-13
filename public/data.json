@@ -1,23 +1,40 @@
 [
   {
-    "id": "crystal-crop-protection-1",
-    "name": "Crystal Crop Protection",
-    "category": "mainboard",
+    "id": "watrana-rentals-1",
+    "name": "Watrana Rentals",
+    "category": "sme",
     "status": "upcoming",
     "statusLabel": "Upcoming",
     "statusColor": "yellow",
-    "priceBand": "₹0",
+    "priceBand": "₹245",
     "gmp": "Awaiting GMP",
     "gmpVal": 0,
     "gmpPercent": "N/A",
-    "estListing": "₹0",
-    "dates": "TBA",
+    "estListing": "₹245",
+    "dates": "19-Nov to 23-Nov",
     "ratingStars": "☆☆☆☆☆",
     "ratingScore": "N/A",
     "sentiment": "Awaiting GMP"
   },
   {
-    "id": "antala-industries-2",
+    "id": "crystal-crop-protection-2",
+    "name": "Crystal Crop Protection",
+    "category": "mainboard",
+    "status": "upcoming",
+    "statusLabel": "Upcoming",
+    "statusColor": "yellow",
+    "priceBand": "₹272",
+    "gmp": "Awaiting GMP",
+    "gmpVal": 0,
+    "gmpPercent": "N/A",
+    "estListing": "₹272",
+    "dates": "18-Nov to 20-Nov",
+    "ratingStars": "☆☆☆☆☆",
+    "ratingScore": "N/A",
+    "sentiment": "Awaiting GMP"
+  },
+  {
+    "id": "antala-industries-3",
     "name": "Antala Industries",
     "category": "sme",
     "status": "closed",
@@ -34,7 +51,7 @@
     "sentiment": "Awaiting GMP"
   },
   {
-    "id": "vedant-poly-fabs-3",
+    "id": "vedant-poly-fabs-4",
     "name": "Vedant Poly Fabs",
     "category": "sme",
     "status": "closed",
@@ -51,7 +68,7 @@
     "sentiment": "Subdued"
   },
   {
-    "id": "vectras-enprocon-4",
+    "id": "vectras-enprocon-5",
     "name": "Vectras Enprocon",
     "category": "sme",
     "status": "closed",
@@ -68,7 +85,7 @@
     "sentiment": "Awaiting GMP"
   },
   {
-    "id": "johnsoncab-electricals-5",
+    "id": "johnsoncab-electricals-6",
     "name": "Johnsoncab Electricals",
     "category": "sme",
     "status": "closed",
@@ -85,7 +102,7 @@
     "sentiment": "Subdued"
   },
   {
-    "id": "maxwell-engineering-solutions-6",
+    "id": "maxwell-engineering-solutions-7",
     "name": "Maxwell Engineering Solutions",
     "category": "sme",
     "status": "closed",
@@ -102,7 +119,7 @@
     "sentiment": "Very Strong"
   },
   {
-    "id": "hgs-india--7",
+    "id": "hgs-india--8",
     "name": "HGS (India)",
     "category": "sme",
     "status": "closed",
@@ -119,7 +136,7 @@
     "sentiment": "Moderate"
   },
   {
-    "id": "bombay-coated-and-special-steels-8",
+    "id": "bombay-coated-and-special-steels-9",
     "name": "Bombay Coated and Special Steels",
     "category": "mainboard",
     "status": "closed",
@@ -136,7 +153,7 @@
     "sentiment": "Subdued"
   },
   {
-    "id": "ajwa-projects-9",
+    "id": "ajwa-projects-10",
     "name": "Ajwa Projects",
     "category": "sme",
     "status": "closed",
@@ -153,7 +170,7 @@
     "sentiment": "Subdued"
   },
   {
-    "id": "carver-roboweld-10",
+    "id": "carver-roboweld-11",
     "name": "Carver Roboweld",
     "category": "sme",
     "status": "closed",
@@ -170,7 +187,7 @@
     "sentiment": "Subdued"
   },
   {
-    "id": "m-k-sons-fine-jewels-11",
+    "id": "m-k-sons-fine-jewels-12",
     "name": "M.K.Sons Fine Jewels",
     "category": "mainboard",
     "status": "closed",
@@ -187,7 +204,7 @@
     "sentiment": "Subdued"
   },
   {
-    "id": "wiscon-industries-12",
+    "id": "wiscon-industries-13",
     "name": "Wiscon Industries",
     "category": "sme",
     "status": "closed",
@@ -204,7 +221,7 @@
     "sentiment": "Awaiting GMP"
   },
   {
-    "id": "bls-polymers-13",
+    "id": "bls-polymers-14",
     "name": "BLS Polymers",
     "category": "mainboard",
     "status": "closed",
@@ -221,7 +238,7 @@
     "sentiment": "Healthy"
   },
   {
-    "id": "sfc-environmental-technologies-14",
+    "id": "sfc-environmental-technologies-15",
     "name": "SFC Environmental Technologies",
     "category": "mainboard",
     "status": "closed",
@@ -238,7 +255,7 @@
     "sentiment": "Subdued"
   },
   {
-    "id": "eaaa-india-alternatives-15",
+    "id": "eaaa-india-alternatives-16",
     "name": "EAAA India Alternatives",
     "category": "mainboard",
     "status": "closed",
@@ -255,7 +272,7 @@
     "sentiment": "Subdued"
   },
   {
-    "id": "core4-engineers-16",
+    "id": "core4-engineers-17",
     "name": "Core4 Engineers",
     "category": "sme",
     "status": "closed",
@@ -272,7 +289,7 @@
     "sentiment": "Awaiting GMP"
   },
   {
-    "id": "jio-platforms-17",
+    "id": "jio-platforms-18",
     "name": "Jio Platforms",
     "category": "mainboard",
     "status": "closed",
@@ -289,7 +306,7 @@
     "sentiment": "Moderate"
   },
   {
-    "id": "paras-healthcare-18",
+    "id": "paras-healthcare-19",
     "name": "Paras Healthcare",
     "category": "mainboard",
     "status": "closed",
@@ -306,7 +323,7 @@
     "sentiment": "Subdued"
   },
   {
-    "id": "shellz-india-19",
+    "id": "shellz-india-20",
     "name": "Shellz India",
     "category": "sme",
     "status": "closed",
@@ -323,7 +340,7 @@
     "sentiment": "Subdued"
   },
   {
-    "id": "sahajanand-medical-technologies-20",
+    "id": "sahajanand-medical-technologies-21",
     "name": "Sahajanand Medical Technologies",
     "category": "mainboard",
     "status": "closed",
@@ -340,7 +357,7 @@
     "sentiment": "Subdued"
   },
   {
-    "id": "tonbo-imaging-india-21",
+    "id": "tonbo-imaging-india-22",
     "name": "Tonbo Imaging India",
     "category": "mainboard",
     "status": "closed",
@@ -357,7 +374,7 @@
     "sentiment": "Very Strong"
   },
   {
-    "id": "bonfiglioli-transmissions-22",
+    "id": "bonfiglioli-transmissions-23",
     "name": "Bonfiglioli Transmissions",
     "category": "mainboard",
     "status": "closed",
@@ -374,7 +391,7 @@
     "sentiment": "Moderate"
   },
   {
-    "id": "zetwerk-23",
+    "id": "zetwerk-24",
     "name": "Zetwerk",
     "category": "mainboard",
     "status": "closed",
@@ -391,7 +408,7 @@
     "sentiment": "Subdued"
   },
   {
-    "id": "ravita-engineering-services-24",
+    "id": "ravita-engineering-services-25",
     "name": "Ravita Engineering Services",
     "category": "sme",
     "status": "closed",
@@ -402,23 +419,6 @@
     "gmpVal": 1,
     "gmpPercent": 0.89,
     "estListing": "₹113",
-    "dates": "14-Oct to 16-Oct",
-    "ratingStars": "★★☆☆☆",
-    "ratingScore": "2.0",
-    "sentiment": "Subdued"
-  },
-  {
-    "id": "fusion-cx-25",
-    "name": "Fusion CX",
-    "category": "mainboard",
-    "status": "closed",
-    "statusLabel": "Closed",
-    "statusColor": "red",
-    "priceBand": "₹289",
-    "gmp": "+₹13.5 (4.67%)",
-    "gmpVal": 13.5,
-    "gmpPercent": 4.67,
-    "estListing": "₹303",
     "dates": "14-Oct to 16-Oct",
     "ratingStars": "★★☆☆☆",
     "ratingScore": "2.0",
