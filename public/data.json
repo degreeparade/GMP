@@ -6,15 +6,15 @@
     "status": "upcoming",
     "statusLabel": "Upcoming",
     "statusColor": "yellow",
-    "priceBand": "₹0",
-    "gmp": "+₹7 (null%)",
+    "priceBand": "₹136",
+    "gmp": "+₹7 (5.15%)",
     "gmpVal": 7,
-    "gmpPercent": "N/A",
-    "estListing": "₹7",
+    "gmpPercent": 5.15,
+    "estListing": "₹143",
     "dates": "19-Nov to 23-Nov",
-    "ratingStars": "☆☆☆☆☆",
-    "ratingScore": "N/A",
-    "sentiment": "Awaiting GMP"
+    "ratingStars": "★★☆☆☆",
+    "ratingScore": "2.0",
+    "sentiment": "Subdued"
   },
   {
     "id": "watrana-rentals-2",
