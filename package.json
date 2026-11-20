@@ -1,8 +1,8 @@
 {
-  "name": "indian-ipo-tracker",
+  "name": "revza-ipo-tracker",
   "version": "1.0.0",
   "private": true,
-  "description": "Automated Indian IPO issue and grey market premium tracker",
+  "description": "Revza's automated Indian IPO issue and grey market premium tracker",
   "main": "update.js",
   "scripts": {
     "update": "node update.js"
