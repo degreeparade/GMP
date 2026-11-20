@@ -132,7 +132,11 @@ function parseRows(html) {
     const closeText = clean(cells.eq(8).text()).split(/GMP:/i)[0].trim();
     const dates = [openText, closeText].filter(Boolean).join(' to ') || 'TBA';
     const status = statusFor(rawName, rowText, openText, closeText);
-    const estListing = `₹${Math.round(price + gmp.value)}`;
+    const priceBand = price > 0 ? `₹${price}` : 'TBA';
+    const gmpLabel = gmp.reported
+      ? `${gmp.value >= 0 ? '+' : ''}₹${gmp.value} (${gmpPercent === null ? 'N/A' : `${gmpPercent}%`})`
+      : 'Awaiting GMP';
+    const estListing = price > 0 ? `₹${Math.round(price + gmp.value)}` : 'TBA';
 
     ipos.push({
       id: `${name.toLowerCase().replace(/[^a-z0-9]+/g, '-')}-${ipos.length + 1}`,
@@ -141,8 +145,8 @@ function parseRows(html) {
       status: status.value,
       statusLabel: status.label,
       statusColor: status.color,
-      priceBand: `₹${price}`,
-      gmp: gmp.reported ? `${gmp.value >= 0 ? '+' : ''}₹${gmp.value} (${gmpPercent}%)` : 'Awaiting GMP',
+      priceBand,
+      gmp: gmpLabel,
       gmpVal: gmp.value,
       gmpPercent: gmpPercent === null ? 'N/A' : gmpPercent,
       estListing,
