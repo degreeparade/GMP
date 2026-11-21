@@ -34,23 +34,6 @@
     "sentiment": "Subdued"
   },
   {
-    "id": "crystal-crop-protection-7",
-    "name": "Crystal Crop Protection",
-    "category": "mainboard",
-    "status": "open",
-    "statusLabel": "Open Now",
-    "statusColor": "green",
-    "priceBand": "₹272",
-    "gmp": "+₹14.5 (5.33%)",
-    "gmpVal": 14.5,
-    "gmpPercent": 5.33,
-    "estListing": "₹287",
-    "dates": "18-Nov to 20-Nov",
-    "ratingStars": "★★☆☆☆",
-    "ratingScore": "2.0",
-    "sentiment": "Subdued"
-  },
-  {
     "id": "monomark-engineering-1",
     "name": "Monomark Engineering",
     "category": "mainboard",
@@ -117,6 +100,23 @@
     "ratingStars": "☆☆☆☆☆",
     "ratingScore": "N/A",
     "sentiment": "Awaiting GMP"
+  },
+  {
+    "id": "crystal-crop-protection-7",
+    "name": "Crystal Crop Protection",
+    "category": "mainboard",
+    "status": "closed",
+    "statusLabel": "Closed",
+    "statusColor": "red",
+    "priceBand": "₹272",
+    "gmp": "+₹14.5 (5.33%)",
+    "gmpVal": 14.5,
+    "gmpPercent": 5.33,
+    "estListing": "₹287",
+    "dates": "18-Nov to 20-Nov",
+    "ratingStars": "★★☆☆☆",
+    "ratingScore": "2.0",
+    "sentiment": "Subdued"
   },
   {
     "id": "antala-industries-8",
