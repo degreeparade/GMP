@@ -34,23 +34,6 @@
     "sentiment": "Subdued"
   },
   {
-    "id": "shree-siddhivinayak-greentech-industries-9",
-    "name": "Shree Siddhivinayak Greentech Industries",
-    "category": "sme",
-    "status": "open",
-    "statusLabel": "Open Now",
-    "statusColor": "green",
-    "priceBand": "₹142",
-    "gmp": "+₹1 (0.7%)",
-    "gmpVal": 1,
-    "gmpPercent": 0.7,
-    "estListing": "₹143",
-    "dates": "25-Nov to 27-Nov",
-    "ratingStars": "★★☆☆☆",
-    "ratingScore": "2.0",
-    "sentiment": "Subdued"
-  },
-  {
     "id": "integris-medtech-1",
     "name": "Integris Medtech",
     "category": "mainboard",
@@ -151,6 +134,23 @@
     "ratingStars": "★★★☆☆",
     "ratingScore": "3.0",
     "sentiment": "Moderate"
+  },
+  {
+    "id": "shree-siddhivinayak-greentech-industries-9",
+    "name": "Shree Siddhivinayak Greentech Industries",
+    "category": "sme",
+    "status": "closed",
+    "statusLabel": "Closed",
+    "statusColor": "red",
+    "priceBand": "₹142",
+    "gmp": "+₹1 (0.7%)",
+    "gmpVal": 1,
+    "gmpPercent": 0.7,
+    "estListing": "₹143",
+    "dates": "25-Nov to 27-Nov",
+    "ratingStars": "★★☆☆☆",
+    "ratingScore": "2.0",
+    "sentiment": "Subdued"
   },
   {
     "id": "watrana-rentals-10",
